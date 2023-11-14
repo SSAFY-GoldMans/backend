@@ -28,7 +28,10 @@ subprojects {
 
     dependencies {
         compileOnly('org.projectlombok:lombok')
+        testImplementation('org.projectlombok:lombok')
         annotationProcessor('org.projectlombok:lombok')
+
+        testImplementation('org.springframework.boot:spring-boot-starter-test')
     }
 
     tasks.named("bootJar") {// 빌드할 때 bootjar 파일로 하겠다는 의미
