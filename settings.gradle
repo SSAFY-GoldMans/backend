@@ -1,1 +1,6 @@
 rootProject.name = 'findmyhomewithsubway'
+
+include 'goldmen-api'
+include 'goldmen-batch'
+include 'goldmen-core'
+include 'goldmen-common'
