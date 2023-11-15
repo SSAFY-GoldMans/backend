@@ -1,6 +1,41 @@
 rootProject.name = 'findmyhomewithsubway'
 
-include 'goldmen-api'
-include 'goldmen-batch'
-include 'goldmen-core'
+/* Application Layer */
+include 'goldmen-application'
+include 'goldmen-application:goldmen-api'
+findProject(':goldmen-application:api')?.name = 'api'
+include 'goldmen-application:goldmen-batch'
+findProject(':goldmen-application:batch')?.name = 'batch'
+
+/* Client Layer */
+include 'goldmen-client'
+include 'goldmen-client:kakao-client'
+findProject(':goldmen-client:kakao-client')?.name = 'kakao-client'
+include 'goldmen-client'
+include 'goldmen-client:seoul-client'
+findProject(':goldmen-client:seoul-client')?.name = 'seoul-client'
+
+/* Domain Layer */
+include 'goldmen-domain'
+include 'goldmen-domain:agent-domain'
+findProject(':goldmen-client:agent-domain')?.name = 'agent-domain'
+include 'goldmen-domain:building-domain'
+findProject(':goldmen-client:building-domain')?.name = 'building-domain'
+include 'goldmen-domain:file-domain'
+findProject(':goldmen-client:file-domain')?.name = 'file-domain'
+include 'goldmen-domain:jpa-service-domain'
+findProject(':goldmen-client:jpa-service-domain')?.name = 'jpa-service-domain'
+include 'goldmen-domain:map-domain'
+findProject(':goldmen-client:map-domain')?.name = 'map-domain'
+include 'goldmen-domain:metro-domain'
+findProject(':goldmen-client:metro-domain')?.name = 'metro-domain'
+include 'goldmen-domain:redis-domain'
+findProject(':goldmen-client:redis-domain')?.name = 'redis-domain'
+include 'goldmen-domain:user-domain'
+findProject(':goldmen-client:user-domain')?.name = 'user-domain'
+
+/* Common Layer */
 include 'goldmen-common'
+
+/* Independent Layer */
+include 'goldmen-independent'

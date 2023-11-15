@@ -1,0 +1,14 @@
+tasks.named('bootJar') {
+    enabled = true
+}
+
+tasks.named('jar') {
+    enabled = false
+}
+
+dependencies {
+    implementation project(':goldmen-common')
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-webflux')
+}
