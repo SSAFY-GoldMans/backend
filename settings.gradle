@@ -36,3 +36,6 @@ findProject(':goldmen-client:user-domain')?.name = 'user-domain'
 
 /* Common Layer */
 include 'goldmen-common'
+
+/* Independent Layer */
+include 'goldmen-independent'
