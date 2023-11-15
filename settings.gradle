@@ -15,7 +15,6 @@ include 'goldmen-client'
 include 'goldmen-client:seoul-client'
 findProject(':goldmen-client:seoul-client')?.name = 'seoul-client'
 
-include 'goldmen-core'
 /* Domain Layer */
 include 'goldmen-domain'
 include 'goldmen-domain:agent-domain'
