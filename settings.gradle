@@ -1,6 +1,12 @@
 rootProject.name = 'findmyhomewithsubway'
 
-include 'goldmen-api'
-include 'goldmen-batch'
+/* Application Layer */
+include 'goldmen-application'
+include 'goldmen-application:api'
+findProject(':goldmen-application:api')?.name = 'api'
+include 'goldmen-application:batch'
+findProject(':goldmen-application:batch')?.name = 'batch'
+
+/* Domain Layer */
 include 'goldmen-core'
 include 'goldmen-common'
