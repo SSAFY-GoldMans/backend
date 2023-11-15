@@ -12,4 +12,12 @@ import lombok.NoArgsConstructor;
 public class Email {
     @Column(name = "email", nullable = false, length = 50)
     private String value;
+
+    private Email(String value) {
+        this.value = value;
+    }
+
+    public static Email from(String email) {
+        return new Email(email);
+    }
 }
