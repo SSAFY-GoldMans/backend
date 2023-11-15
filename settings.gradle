@@ -7,6 +7,14 @@ findProject(':goldmen-application:api')?.name = 'api'
 include 'goldmen-application:batch'
 findProject(':goldmen-application:batch')?.name = 'batch'
 
+/* Client Layer */
+include 'goldmen-client'
+include 'goldmen-client:kakao-client'
+findProject(':goldmen-client:kakao-client')?.name = 'kakao-client'
+include 'goldmen-client'
+include 'goldmen-client:seoul-client'
+findProject(':goldmen-client:seoul-client')?.name = 'seoul-client'
+
 /* Domain Layer */
 include 'goldmen-core'
 include 'goldmen-common'
