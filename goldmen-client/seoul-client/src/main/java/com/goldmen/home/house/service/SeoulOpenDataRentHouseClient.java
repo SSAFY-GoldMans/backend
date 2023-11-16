@@ -1,9 +1,9 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.house.dto.request.SeoulOpenDataHouseAPIRequest;
-import com.goldmen.home.house.vo.SeoulOpenDataHouse;
-import com.goldmen.home.house.vo.SeoulOpenDataHouseData;
-import com.goldmen.home.house.dto.response.SeoulOpenDataHouseDataResponse;
+import com.goldmen.home.house.dto.request.SeoulOpenDataRentHouseAPIRequest;
+import com.goldmen.home.house.vo.SeoulOpenDataRentHouse;
+import com.goldmen.home.house.vo.SeoulOpenDataRentHouseData;
+import com.goldmen.home.house.dto.response.SeoulOpenDataRentHouseDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class SeoulOpenDataHouseClient {
+public class SeoulOpenDataRentHouseClient {
     @Value("${seoulOpenDateKey}")
     private String key;
 
     /**
      * 공공데이터에서 전세집 데이터를 추출한다.
      */
-    public SeoulOpenDataHouseData fetchAPI(SeoulOpenDataHouseAPIRequest request) {
+    public SeoulOpenDataRentHouseData fetchAPI(SeoulOpenDataRentHouseAPIRequest request) {
         String urlBuilder = "http://openapi.seoul.go.kr:8088"
                 + '/' + URLEncoder.encode(key, StandardCharsets.UTF_8)
                 + '/' + URLEncoder.encode("json", StandardCharsets.UTF_8)
@@ -32,18 +32,18 @@ public class SeoulOpenDataHouseClient {
                 + '/' + URLEncoder.encode(String.valueOf(request.getEnd()), StandardCharsets.UTF_8);
 
         RestTemplate restTemplate = new RestTemplate();
-        SeoulOpenDataHouseDataResponse wrapper = restTemplate.getForObject(urlBuilder, SeoulOpenDataHouseDataResponse.class);
-        return wrapper.seoulOpenDataHouseData();
+        SeoulOpenDataRentHouseDataResponse wrapper = restTemplate.getForObject(urlBuilder, SeoulOpenDataRentHouseDataResponse.class);
+        return wrapper.seoulOpenDataRentHouseData();
     }
 
     /**
      * 전/월세 집 중 필요한 데이터만 추출하기 위한 필터링기능
      *
-     * @param seoulOpenDataHouseList 공공데이터 API의 전/월세집 데이터
-     * @return {@link SeoulOpenDataHouse}
+     * @param seoulOpenDataRentHouseList 공공데이터 API의 전/월세집 데이터
+     * @return {@link SeoulOpenDataRentHouse}
      */
-    public List<SeoulOpenDataHouse> filteringHouse(List<SeoulOpenDataHouse> seoulOpenDataHouseList) {
-        return seoulOpenDataHouseList.stream()
+    public List<SeoulOpenDataRentHouse> filteringHouse(List<SeoulOpenDataRentHouse> seoulOpenDataRentHouseList) {
+        return seoulOpenDataRentHouseList.stream()
                 .filter(house -> !house.rentGbn().equals("매매"))
                 .filter(house -> house.cntrctPrd().isEmpty())
                 .filter(house -> house.bobn() != null && !house.bobn().isEmpty())

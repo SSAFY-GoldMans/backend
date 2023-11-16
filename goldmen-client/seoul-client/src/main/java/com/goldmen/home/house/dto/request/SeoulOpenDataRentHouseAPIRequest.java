@@ -6,21 +6,21 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Getter
-public class SeoulOpenDataHouseAPIRequest {
+public class SeoulOpenDataRentHouseAPIRequest {
     private int start;
     private int end;
     private int size;
 
-    public static SeoulOpenDataHouseAPIRequest healthCheckRequest() {
-        return SeoulOpenDataHouseAPIRequest.builder()
+    public static SeoulOpenDataRentHouseAPIRequest healthCheckRequest() {
+        return SeoulOpenDataRentHouseAPIRequest.builder()
                 .start(1)
                 .end(1)
                 .size(0)
                 .build();
     }
 
-    public static SeoulOpenDataHouseAPIRequest toRequest(int index, int size) {
-        return SeoulOpenDataHouseAPIRequest.builder()
+    public static SeoulOpenDataRentHouseAPIRequest toRequest(int index, int size) {
+        return SeoulOpenDataRentHouseAPIRequest.builder()
                 .start(index)
                 .end(index + size)
                 .size(size)

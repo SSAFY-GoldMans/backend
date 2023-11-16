@@ -2,16 +2,15 @@ package com.goldmen.home.house.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 
-public record SeoulOpenDataHouse(String accYear, String sggCd, String sggNm, String bjdongCd, String bjdongNm,
-                                 String landGbn, String landGbnNm, String bobn, String bubn, Integer flrNo,
-                                 String cntrctDe, String rentGbn, Double rentArea, String rentGtn, String rentFee,
-                                 String bldgNm, String buildYear, String houseGbnNm, String cntrctPrd,
-                                 String newRonSecd, String cntrctUpdtRqestAt, String beforeGrntyAmount,
-                                 String beforeMtRentChrge) {
+public record SeoulOpenDataRentHouse(String accYear, String sggCd, String sggNm, String bjdongCd, String bjdongNm,
+                                     String landGbn, String landGbnNm, String bobn, String bubn, Integer flrNo,
+                                     String cntrctDe, String rentGbn, Double rentArea, String rentGtn, String rentFee,
+                                     String bldgNm, String buildYear, String houseGbnNm, String cntrctPrd,
+                                     String newRonSecd, String cntrctUpdtRqestAt, String beforeGrntyAmount,
+                                     String beforeMtRentChrge) {
     @JsonCreator
-    public SeoulOpenDataHouse(
+    public SeoulOpenDataRentHouse(
             @JsonProperty("ACC_YEAR") String accYear,
             @JsonProperty("SGG_CD") String sggCd,
             @JsonProperty("SGG_NM") String sggNm,
