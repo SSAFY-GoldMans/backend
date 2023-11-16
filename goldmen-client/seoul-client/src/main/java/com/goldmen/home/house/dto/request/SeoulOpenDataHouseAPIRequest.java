@@ -1,4 +1,4 @@
-package com.goldmen.home.house.dto;
+package com.goldmen.home.house.dto.request;
 
 import lombok.*;
 

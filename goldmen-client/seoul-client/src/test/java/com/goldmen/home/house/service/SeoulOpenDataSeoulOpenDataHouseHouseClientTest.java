@@ -1,6 +1,6 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.house.dto.SeoulOpenDataHouseAPIRequest;
+import com.goldmen.home.house.dto.request.SeoulOpenDataHouseAPIRequest;
 import com.goldmen.home.house.vo.SeoulOpenDataHouseData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

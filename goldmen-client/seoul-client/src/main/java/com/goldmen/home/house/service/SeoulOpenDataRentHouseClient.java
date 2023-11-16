@@ -1,8 +1,8 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.house.dto.SeoulOpenDataHouseAPIRequest;
+import com.goldmen.home.house.dto.request.SeoulOpenDataHouseAPIRequest;
 import com.goldmen.home.house.vo.SeoulOpenDataHouseData;
-import com.goldmen.home.house.vo.SeoulOpenDataHouseWrapper;
+import com.goldmen.home.house.dto.response.SeoulOpenDataHouseDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class SeoulOpenDataRentHouseClient {
                 + '/' + URLEncoder.encode(String.valueOf(request.getEnd()), StandardCharsets.UTF_8);
 
         RestTemplate restTemplate = new RestTemplate();
-        SeoulOpenDataHouseWrapper wrapper = restTemplate.getForObject(urlBuilder, SeoulOpenDataHouseWrapper.class);
+        SeoulOpenDataHouseDataResponse wrapper = restTemplate.getForObject(urlBuilder, SeoulOpenDataHouseDataResponse.class);
         return wrapper.seoulOpenDataHouseData();
     }
 }
