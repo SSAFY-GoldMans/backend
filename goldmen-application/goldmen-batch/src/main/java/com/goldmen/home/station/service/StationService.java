@@ -1,8 +1,8 @@
 package com.goldmen.home.station.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.goldmen.home.station.dto.response.StationInfoResponse;
 import com.goldmen.home.station.vo.StationInfo;
-import com.goldmen.home.station.vo.StationInfoRaw;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class StationService {
 
     public List<StationInfo> getStationInformationFile(String path) throws IOException {
         ClassPathResource resource = new ClassPathResource(path);
-        StationInfoRaw stationInfoRaw = objectMapper.readValue(resource.getInputStream(), StationInfoRaw.class);
+        StationInfoResponse stationInfoRaw = objectMapper.readValue(resource.getInputStream(), StationInfoResponse.class);
         return stationInfoRaw.getStationInfoList();
     }
 }

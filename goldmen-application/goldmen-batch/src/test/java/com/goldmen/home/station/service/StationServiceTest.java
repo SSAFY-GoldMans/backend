@@ -1,14 +1,11 @@
 package com.goldmen.home.station.service;
 
 import com.goldmen.home.station.vo.StationInfo;
-import com.goldmen.home.station.vo.StationInfoRaw;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
