@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public enum MemberMessage implements Message {
-    SUCCESS_SIGNUP("회원가입에 성공하였습니다.");
+    SUCCESS_SIGNUP("회원가입에 성공하였습니다."),
+    SUCCESS_LOGIN("로그인에 성공하였습니다.");
 
     private String message;
 }
