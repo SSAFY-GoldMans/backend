@@ -6,6 +6,7 @@ import com.goldmen.home.user.member.domain.embedded.Email;
 import com.goldmen.home.user.member.domain.embedded.Password;
 import com.goldmen.home.user.member.domain.embedded.Phone;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
 public enum MemberFixture {
@@ -23,5 +24,9 @@ public enum MemberFixture {
                 .phone(Phone.from(phone))
                 .role(role)
                 .build();
+    }
+
+    public Email 이메일을_가져온다() {
+        return Email.from(email);
     }
 }

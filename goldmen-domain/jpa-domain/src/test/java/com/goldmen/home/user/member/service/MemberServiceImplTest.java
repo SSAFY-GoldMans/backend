@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -41,6 +40,28 @@ class MemberServiceImplTest {
         /* When */
         /* Then */
         assertThatThrownBy(() -> memberService.save(member))
+                .isInstanceOf(RuntimeException.class);
+    }
+
+    @DisplayName("이메일로 회원 찾기에 성공한다")
+    @Test
+    void findByEmailTestSuccess() {
+        /* Given */
+        memberService.save(MemberFixture.정욱.사용자를_생성한다());
+
+        /* When */
+        /* Then */
+        assertThatCode(() -> memberService.findByEmail(MemberFixture.정욱.이메일을_가져온다()))
+                .doesNotThrowAnyException();
+    }
+
+    @DisplayName("이메일로 회원 찾기에 실패한다")
+    @Test
+    void findByEmailFailureTestSuccess() {
+        /* Given */
+        /* When */
+        /* Then */
+        assertThatThrownBy(() -> memberService.findByEmail(MemberFixture.정욱.이메일을_가져온다()))
                 .isInstanceOf(RuntimeException.class);
     }
 }
