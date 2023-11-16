@@ -14,14 +14,17 @@ public class MemberServiceImpl
         implements MemberLoadService, MemberModifyService {
     private final MemberRepository memberRepository;
 
-    @Override
-    public boolean existsByEmail(Email email) {
-        return memberRepository.existsByEmail(email);
-    }
-
     @Transactional
     @Override
     public Member save(Member member) {
+        validateDuplicateBy(member.getEmail());
+
         return memberRepository.save(member);
+    }
+
+    private void validateDuplicateBy(Email email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new RuntimeException();
+        }
     }
 }
