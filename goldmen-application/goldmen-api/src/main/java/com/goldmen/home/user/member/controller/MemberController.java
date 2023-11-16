@@ -1,5 +1,6 @@
 package com.goldmen.home.user.member.controller;
 
+import com.goldmen.home.type.ApiResponse;
 import com.goldmen.home.user.member.dto.request.MemberSignupRequest;
 import com.goldmen.home.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@RequestBody MemberSignupRequest request) {
-        memberService.signup(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ApiResponse<String>> signup(@RequestBody MemberSignupRequest request) {
+        ApiResponse<String> response = memberService.signup(request);
+        return ResponseEntity.ok(response);
     }
 }
