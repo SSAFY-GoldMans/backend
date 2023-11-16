@@ -7,14 +7,8 @@ tasks.named('jar') {
 }
 
 dependencies {
-    implementation project(':goldmen-domain:agent-domain')
-    implementation project(':goldmen-domain:building-domain')
-    implementation project(':goldmen-domain:file-domain')
-    implementation project(':goldmen-domain:jpa-service-domain')
-    implementation project(':goldmen-domain:map-domain')
-    implementation project(':goldmen-domain:metro-domain')
-    implementation project(':goldmen-domain:user-domain')
+    implementation project(':goldmen-domain:jpa-domain')
     implementation project(':goldmen-common')
 
-    implementation('org.springframework.boot:spring-boot-starter-web:')
+    implementation('org.springframework.boot:spring-boot-starter-web')
 }
