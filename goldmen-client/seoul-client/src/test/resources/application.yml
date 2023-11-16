@@ -1,1 +1,6 @@
-seoulOpenDateKey : "6c6979506c726b64363262454c6d61"
+spring:
+  config:
+    activate:
+      on-profile: test
+    import:
+      - security/application-api.yml
