@@ -5,7 +5,6 @@ import com.goldmen.home.dto.request.KakaoAPIRequest;
 import com.goldmen.home.dto.response.KakaoAPIResponse;
 import com.goldmen.home.vo.Position;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
