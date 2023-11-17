@@ -17,6 +17,6 @@ public class DistrictService {
     }
 
     public District saveDistrict(District district){
-        return districtRepository.save(district);
+        return districtRepository.findByCode(district.getCode()).orElse(districtRepository.save(district));
     }
 }

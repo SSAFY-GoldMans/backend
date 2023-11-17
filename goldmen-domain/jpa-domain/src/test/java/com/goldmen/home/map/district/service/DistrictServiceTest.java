@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,33 +32,65 @@ class DistrictServiceTest {
     @Mock
     private DistrictRepository districtRepository;
 
-    @DisplayName("District 저장 테스트")
+    @DisplayName("District 조회 테스트")
     @Nested
-    class getDistrictTest{
+    class findDistrictTest{
         @DisplayName("성공")
         @Test
-        void whenSuccessByAlreadyExist(){
+        void whenSuccess(){
             /* GIVEN */
             District district = District.builder().code("1100").name("역삼역").build();
             given(districtRepository.findByCode(any())).willReturn(Optional.of(district));
 
             /* WHEN */
-            District gotDistrict = districtService.getDistrict(district);
+            District gotDistrict = districtService.findDistrict(district);
 
             /* THEN */
             assertEquals(district.getCode(),gotDistrict.getCode());
         }
 
-        @DisplayName("저장 후 추출")
+        @DisplayName("실패")
+        @Test
+        void whenFail(){
+            /* GIVEN */
+            District district = District.builder().code("1100").name("역삼역").build();
+            given(districtRepository.findByCode(any())).willReturn(Optional.empty());
+
+            /* WHEN, THEN */
+            assertThrows(NoSuchElementException.class,() -> {
+                districtService.findDistrict(district);
+            });
+
+        }
+    }
+
+    @DisplayName("District 저장 테스트")
+    @Nested
+    class saveDistrictTest{
+        @DisplayName("이미 존재해서 성공")
+        @Test
+        void whenSuccessByExist(){
+            /* GIVEN */
+            District district = District.builder().code("1100").name("역삼역").build();
+            given(districtRepository.findByCode(any())).willReturn(Optional.of(district));
+
+            /* WHEN */
+            District gotDistrict = districtService.saveDistrict(district);
+
+            /* THEN */
+            assertEquals(district.getCode(),gotDistrict.getCode());
+        }
+
+        @DisplayName("저장후 성공")
         @Test
         void whenSuccessBySave(){
             /* GIVEN */
             District district = District.builder().code("1100").name("역삼역").build();
             given(districtRepository.findByCode(any())).willReturn(Optional.empty());
-            given(districtRepository.save(district)).willReturn(district);
+            given(districtRepository.save(any())).willReturn(district);
 
             /* WHEN */
-            District gotDistrict = districtService.getDistrict(district);
+            District gotDistrict = districtService.saveDistrict(district);
 
             /* THEN */
             assertEquals(district.getCode(),gotDistrict.getCode());

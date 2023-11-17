@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,38 +30,69 @@ class LegalServiceTest {
     @Mock
     private LegalRepository legalRepository;
 
-    @DisplayName("District 저장 테스트")
+    @DisplayName("Legal 조회 테스트")
     @Nested
-    class getDistrictTest{
+    class findLegalTest {
         @DisplayName("성공")
         @Test
-        void whenSuccessByAlreadyExist(){
+        void whenSuccessByAlreadyExist() {
             /* GIVEN */
             District district = District.builder().code("1100").name("역삼역").build();
             Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.of(legal));
 
             /* WHEN */
-            Legal gotLegal = legalService.getLegal(legal);
+            Legal gotLegal = legalService.findLegal(legal);
 
             /* THEN */
-            assertEquals(legal.getCode(),gotLegal.getCode());
+            assertEquals(legal.getCode(), gotLegal.getCode());
         }
 
-        @DisplayName("저장 후 추출")
+        @DisplayName("실패")
         @Test
-        void whenSuccessBySave(){
+        void whenFail() {
             /* GIVEN */
             District district = District.builder().code("1100").name("역삼역").build();
             Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.empty());
-            given(legalRepository.save(legal)).willReturn(legal);
+            /* WHEN , THEN*/
+            assertThrows(NoSuchElementException.class, () -> {
+                Legal gotLegal = legalService.findLegal(legal);
+            });
+        }
+    }
+
+    @DisplayName("Legal 저장 테스트")
+    @Nested
+    class saveLegalTest {
+        @DisplayName("성공")
+        @Test
+        void whenSuccessByAlreadyExist() {
+            /* GIVEN */
+            District district = District.builder().code("1100").name("역삼역").build();
+            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
+            given(legalRepository.findByCode(any())).willReturn(Optional.of(legal));
 
             /* WHEN */
-            Legal gotLegal = legalService.getLegal(legal);
+            Legal gotLegal = legalService.findLegal(legal);
 
             /* THEN */
-            assertEquals(legal.getCode(),gotLegal.getCode());
+            assertEquals(legal.getCode(), gotLegal.getCode());
+        }
+
+        @DisplayName("저장 후 추출")
+        @Test
+        void whenSuccessBySave() {
+            assertThrows(NoSuchElementException.class, () -> {
+                /* GIVEN */
+                District district = District.builder().code("1100").name("역삼역").build();
+                Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
+                given(legalRepository.findByCode(any())).willReturn(Optional.empty());
+                given(legalRepository.save(legal)).willReturn(legal);
+
+                /* WHEN */
+                Legal gotLegal = legalService.findLegal(legal);
+            });
         }
     }
 }
