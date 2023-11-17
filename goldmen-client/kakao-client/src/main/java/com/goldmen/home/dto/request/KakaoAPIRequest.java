@@ -1,17 +1,18 @@
 package com.goldmen.home.dto.request;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter
-public class KakaoAPIRequest{
-    private String query;
+@Builder
+public class KakaoAPIRequest {
+    private String sggNm;
+    private String bjDongNm;
+    private String bobn;
+    private String bubn;
 
-    public static KakaoAPIRequest toRequest(String query) {
-        return new KakaoAPIRequest(query);
+    public String makeRoadAddress() {
+        return sggNm + " " + bjDongNm + " " +
+                bobn + "-" + bubn;
     }
 }
