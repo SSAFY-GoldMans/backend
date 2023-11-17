@@ -2,6 +2,7 @@ package com.goldmen.home.map.district.domain;
 
 import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -20,10 +21,12 @@ public class District {
     private int id;
 
     @Size(max = 10)
+    @NotBlank
     @Column(name = "district_name", nullable = false, length = 10)
     private String name;
 
     @Size(max = 10)
+    @NotBlank
     @Column(name = "district_code", nullable = false, length = 10)
     private String code;
 
