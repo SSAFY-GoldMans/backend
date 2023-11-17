@@ -6,5 +6,5 @@ public record MemberSignupRequest(String email,
                                   String password,
                                   String validatePassword,
                                   String phone,
-                                  Role Role) {
+                                  Role role) {
 }
