@@ -8,12 +8,20 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class LineServiceImpl implements LineModifyService {
+public class LineServiceImpl implements LineModifyService, LineLoadService {
     private final LineRepository lineRepository;
 
     @Override
     @Transactional
     public Line save(Line line) {
-        return lineRepository.save(line);
+        return lineRepository.findByName(line.getName())
+                .orElse(lineRepository.save(line));
+    }
+
+    @Override
+    @Transactional
+    public Line find(Line line) {
+        return lineRepository.findByName(line.getName())
+                .orElseThrow();
     }
 }
