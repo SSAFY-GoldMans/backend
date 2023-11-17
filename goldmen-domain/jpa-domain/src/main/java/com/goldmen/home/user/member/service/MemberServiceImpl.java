@@ -27,4 +27,10 @@ public class MemberServiceImpl
             throw new RuntimeException();
         }
     }
+
+    @Override
+    public Member findByEmail(Email email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException());
+    }
 }

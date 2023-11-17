@@ -30,4 +30,12 @@ public class ApiResponse<T> {
         }
         return this;
     }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public T getBody() {
+        return body;
+    }
 }
