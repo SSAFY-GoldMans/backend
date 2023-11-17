@@ -2,7 +2,7 @@ package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,11 +16,11 @@ public class Legal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Max(10)
+    @Size(max = 10)
     @Column(name = "legal_name", nullable = false, length = 10)
     private String name;
 
-    @Max(10)
+    @Size(max = 10)
     @Column(name = "legal_code", nullable = false, length = 10)
     private String code;
 
