@@ -3,7 +3,10 @@ package com.goldmen.home.map.district.domain;
 import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +22,13 @@ public class District {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Max(10)
+    @Size(max = 10)
+    @NotBlank
     @Column(name = "district_name", nullable = false, length = 10)
     private String name;
 
-    @Max(10)
+    @Size(max = 10)
+    @NotBlank
     @Column(name = "district_code", nullable = false, length = 10)
     private String code;
 
