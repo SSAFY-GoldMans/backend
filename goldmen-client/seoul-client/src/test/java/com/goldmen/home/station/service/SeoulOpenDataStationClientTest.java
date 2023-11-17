@@ -1,5 +1,6 @@
 package com.goldmen.home.station.service;
 
+import com.goldmen.home.station.config.property.StationProperties;
 import com.goldmen.home.station.vo.StationInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ public class SeoulOpenDataStationClientTest {
     @DisplayName("역정보를 추출하는데 성공한다.")
     @Test
     void getStationInfoTestWhenSuccess() throws IOException {
-        List<StationInfo> stationInfos = stationClient.getStationInformationFile("stationInformation.json");
+        List<StationInfo> stationInfos = stationClient.getStationInformationFile();
         assertEquals("01호선", stationInfos.get(0).getLineNum());
         assertEquals("병점", stationInfos.get(0).getStationName());
         assertEquals("1716", stationInfos.get(0).getStationCode());
