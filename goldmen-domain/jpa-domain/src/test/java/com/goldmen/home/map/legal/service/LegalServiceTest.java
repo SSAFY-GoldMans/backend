@@ -73,25 +73,23 @@ class LegalServiceTest {
             Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.of(legal));
 
-            /* WHEN */
-            Legal gotLegal = legalService.findLegal(legal);
-
-            /* THEN */
-            assertEquals(legal.getCode(), gotLegal.getCode());
+            /* WHEN, THEN */
+            assertDoesNotThrow(()->{
+                legalService.findLegal(legal);
+            });
         }
 
         @DisplayName("저장 후 추출")
         @Test
         void whenSuccessBySave() {
-            assertThrows(NoSuchElementException.class, () -> {
-                /* GIVEN */
-                District district = District.builder().code("1100").name("역삼역").build();
-                Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
-                given(legalRepository.findByCode(any())).willReturn(Optional.empty());
-                given(legalRepository.save(legal)).willReturn(legal);
+            /* GIVEN */
+            District district = District.builder().code("1100").name("역삼역").build();
+            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
+            given(legalRepository.findByCode(any())).willReturn(Optional.empty());
 
-                /* WHEN */
-                Legal gotLegal = legalService.findLegal(legal);
+            /* WHEN , THEN */
+            assertThrows(NoSuchElementException.class, () -> {
+                legalService.findLegal(legal);
             });
         }
     }

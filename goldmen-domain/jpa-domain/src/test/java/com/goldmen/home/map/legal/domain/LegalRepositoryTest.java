@@ -7,16 +7,13 @@ import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 class LegalRepositoryTest {
     @Autowired
@@ -29,15 +26,17 @@ class LegalRepositoryTest {
 
     @DisplayName("Legal 저장 테스트")
     @Nested
-    class saveDistrictTest {
+    class SaveDistrictTest {
         @Transactional
         @DisplayName("성공")
         @Test
         void whenSuccess() {
             District district = districtRepository.save(District.builder().code("1100").name("역삼역").build());
             legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
+
             em.flush();
             em.clear();
+            em.close();
 
             assertEquals(1, legalRepository.findAll().size());
         }
@@ -45,8 +44,8 @@ class LegalRepositoryTest {
         @Transactional
         @DisplayName("District 없어서 실패")
         @Test
-        void whenFailByNotExistDeistrct(){
-            assertThrows(RuntimeException.class, ()->{
+        void whenFailByNotExistDistrict() {
+            assertThrows(RuntimeException.class, () -> {
                 District district = District.builder().code("1100").name("역삼역").build();
                 legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
                 em.flush();
