@@ -16,7 +16,7 @@ public class MemberMapper {
                 .email(Email.from(request.email()))
                 .password(Password.from(request.password()))
                 .phone(Phone.from(request.phone()))
-                .role(request.Role())
+                .role(request.role())
                 .build();
     }
 }

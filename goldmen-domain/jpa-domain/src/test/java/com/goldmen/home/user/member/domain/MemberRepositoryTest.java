@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -37,5 +39,18 @@ class MemberRepositoryTest {
 
         /* Then */
         assertThat(actual).isTrue();
+    }
+
+    @DisplayName("이메일로 회원 찾기에 성공한다.")
+    @Test
+    void findByEmailSuccess() {
+        /* Given */
+        Member member = memberRepository.save(MemberFixture.정욱.사용자를_생성한다());
+
+        /* When */
+        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
+
+        /* Then */
+        assertThat(findMember).isPresent();
     }
 }
