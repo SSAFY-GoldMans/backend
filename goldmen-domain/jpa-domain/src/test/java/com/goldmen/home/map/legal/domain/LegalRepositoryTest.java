@@ -1,8 +1,7 @@
-package com.goldmen.home.map.district.repository;
+package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import com.goldmen.home.map.district.domain.DistrictRepository;
-import com.goldmen.home.map.district.service.DistrictService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
@@ -19,44 +18,40 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class DistrictRepositoryTest {
+class LegalRepositoryTest {
+    @Autowired
+    private LegalRepository legalRepository;
     @Autowired
     private DistrictRepository districtRepository;
 
     @PersistenceContext
     private EntityManager em;
 
-    @DisplayName("District 저장 테스트")
+    @DisplayName("Legal 저장 테스트")
     @Nested
     class saveDistrictTest {
+        @Transactional
         @DisplayName("성공")
         @Test
         void whenSuccess() {
-            District district = District.builder().code("1100").name("역삼역").build();
-            districtRepository.save(district);
+            District district = districtRepository.save(District.builder().code("1100").name("역삼역").build());
+            legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
             em.flush();
             em.clear();
-            assertEquals(1, districtRepository.findAll().size());
+
+            assertEquals(1, legalRepository.findAll().size());
         }
 
-        @DisplayName("실패, 코드가 없을 때")
+        @Transactional
+        @DisplayName("District 없어서 실패")
         @Test
-        void whenFailByCodeEmpty() {
-            assertThrows(RuntimeException.class, () -> {
-                District district = District.builder().code("").name("역삼역").build();
-                districtRepository.save(district);
-            });
-        }
-
-        @DisplayName("실패, 코드가 10글자이상일 때")
-        @Test
-        void whenSuccessByNameEmpty() {
-            assertThrows(RuntimeException.class, () -> {
-                District district = District.builder().code("1100123401235123").name("역삼역").build();
-                districtRepository.save(district);
+        void whenFailByNotExistDeistrct(){
+            assertThrows(RuntimeException.class, ()->{
+                District district = District.builder().code("1100").name("역삼역").build();
+                legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
+                em.flush();
+                em.clear();
             });
         }
     }
-
-
 }
