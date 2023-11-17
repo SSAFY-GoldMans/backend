@@ -6,18 +6,21 @@ import com.goldmen.home.map.legal.domain.Legal;
 import com.goldmen.home.map.legal.domain.LegalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class LegalService {
     private final LegalRepository legalRepository;
 
-    public Legal getLegal(Legal legal) {
+    public Legal findLegal(Legal legal) {
         return legalRepository.findByCode(legal.getCode())
-                .orElse(saveLegal(legal));
+                .orElseThrow();
     }
 
+    @Transactional
     public Legal saveLegal(Legal legal) {
-        return legalRepository.save(legal);
+        return legalRepository.findByCode(legal.getCode()).orElse(legalRepository.save(legal));
     }
 }
