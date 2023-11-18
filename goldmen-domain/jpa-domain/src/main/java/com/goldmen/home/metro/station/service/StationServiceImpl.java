@@ -14,6 +14,9 @@ public class StationServiceImpl implements StationModifyService {
     @Override
     @Transactional
     public Station save(Station station) {
+        if(stationRepository.existsByNameAndLine(station.getName(), station.getLine())) {
+            throw new RuntimeException("지하철 데이터 중복");
+        }
         return stationRepository.save(station);
     }
 }
