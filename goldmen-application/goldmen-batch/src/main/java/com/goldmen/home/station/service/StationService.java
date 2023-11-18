@@ -1,8 +1,11 @@
 package com.goldmen.home.station.service;
 
 import com.goldmen.home.dto.request.KaKaoKeywordAPIRequest;
+import com.goldmen.home.map.legal.domain.Legal;
+import com.goldmen.home.map.legal.service.LegalService;
 import com.goldmen.home.metro.line.domain.Line;
 import com.goldmen.home.metro.line.service.LineServiceImpl;
+import com.goldmen.home.metro.station.domain.Station;
 import com.goldmen.home.metro.station.service.StationServiceImpl;
 import com.goldmen.home.service.KakaoMapService;
 import com.goldmen.home.station.vo.StationInfo;
@@ -20,6 +23,7 @@ public class StationService {
     private KakaoMapService kakaoService;
     private StationServiceImpl stationService;
     private LineServiceImpl lineService;
+    private LegalService legalService;
 
     private List<StationInfo> getStationInformation() throws IOException {
         return stationClient.getStationInformationFile();
@@ -33,8 +37,19 @@ public class StationService {
     public void saveStation() throws IOException {
         List<StationInfo> stationInfoList = getStationInformation();
         for (StationInfo stationInfo : stationInfoList) {
+            Position position = getPositionByKeyword(stationInfo.getStationName());
             Line line = lineService.find(Line.builder().name(stationInfo.getStationName()).build());
+            Legal legal = legalService.findLegal(Legal.builder().name(position.getLegalName()).build());
+            stationService.save(Station
+                    .builder()
+                    .name(stationInfo.getStationName())
+                    .lat(Double.parseDouble(position.getLongitude()))
+                    .lat(Double.parseDouble(position.getLatitude()))
+                    .code(Integer.parseInt(stationInfo.getStationCode()))
+                    .line(line)
+                    .legal(legal)
+                    .build()
+            );
         }
-        /// TODO: 2023-11-17 stationService.saveStation();
     }
 }
