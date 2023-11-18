@@ -5,7 +5,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class KakaoAPIRequest {
+public class KakaoAddressAPIRequest {
     private String sggNm;
     private String bjDongNm;
     private String bobn;

@@ -8,5 +8,6 @@ import org.springframework.http.HttpMethod;
 @Getter
 public class KakaoAddressProperties {
     private final HttpMethod method = HttpMethod.GET;
-    private final String path = "v2/local/search/address.json";
+    private final String addressPath = "v2/local/search/address.json";
+    private final String keywordPath = "v2/local/search/keyword.json";
 }
