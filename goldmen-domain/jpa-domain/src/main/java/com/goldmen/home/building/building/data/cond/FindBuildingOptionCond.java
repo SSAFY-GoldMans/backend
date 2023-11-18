@@ -10,8 +10,8 @@ public class FindBuildingOptionCond {
     private Legal legal;
     private double lat;
     private double lng;
-    private int mainNumber;
-    private int subNumber;
+    private String mainNumber;
+    private String subNumber;
     private String buildingType;
     private String buildingName;
 
@@ -28,7 +28,7 @@ public class FindBuildingOptionCond {
     }
 
     @Builder
-    private FindBuildingOptionCond(Legal legal, double lat, double lng, int mainNumber, int subNumber, String buildingType, String buildingName) {
+    private FindBuildingOptionCond(Legal legal, double lat, double lng, String mainNumber, String subNumber, String buildingType, String buildingName) {
         this.legal = legal;
         this.lat = lat;
         this.lng = lng;

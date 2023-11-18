@@ -41,7 +41,7 @@ class LegalServiceTest {
         @Test
         void whenSuccessByAlreadyExist() {
             /* GIVEN */
-            given(legalRepository.findByCodeAndDistrict_Code(any(),any())).willReturn(Optional.of(legal));
+            given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.of(legal));
 
             /* WHEN */
             Legal gotLegal = legalService.findLegal(legal);
@@ -54,7 +54,7 @@ class LegalServiceTest {
         @Test
         void whenFail() {
             /* GIVEN */
-            given(legalRepository.findByCodeAndDistrict_Code(any(),any())).willReturn(Optional.empty());
+            given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.empty());
             /* WHEN , THEN*/
             assertThrows(NoSuchElementException.class, () -> {
                 Legal gotLegal = legalService.findLegal(legal);
@@ -69,7 +69,7 @@ class LegalServiceTest {
         @Test
         void whenSuccessByAlreadyExist() {
             /* GIVEN */
-            given(legalRepository.findByCodeAndDistrict_Code(any(),any())).willReturn(Optional.of(legal));
+            given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.of(legal));
 
             /* WHEN, THEN */
             assertDoesNotThrow(()->{
@@ -81,7 +81,7 @@ class LegalServiceTest {
         @Test
         void whenSuccessBySave() {
             /* GIVEN */
-            given(legalRepository.findByCodeAndDistrict_Code(any(),any())).willReturn(Optional.empty());
+            given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.empty());
 
             /* WHEN , THEN */
             assertThrows(NoSuchElementException.class, () -> {
