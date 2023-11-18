@@ -1,18 +1,17 @@
-package com.goldmen.home.station.dto.response;
+package com.goldmen.home.station.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.goldmen.home.station.vo.StationInfo;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-public class StationInfoResponse {
+public class StationInfoRaw {
     private List<StationInfo> stationInfoList;
 
     @JsonCreator
-    public StationInfoResponse(
+    public StationInfoRaw(
             @JsonProperty("DATA") List<StationInfo> stationInfoList
     ){
         this.stationInfoList = stationInfoList;

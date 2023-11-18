@@ -20,7 +20,6 @@ public class SeoulOpenDataStationClient {
     /**
      * 역 정보를 가져오는 API
      *
-     * @param path 역 정보 파일의 경로
      * @return 역 정보 리스트 List<{@link StationInfo}>
      * @throws IOException
      */
