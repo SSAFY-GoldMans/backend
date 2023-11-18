@@ -2,6 +2,7 @@ package com.goldmen.home.map.district.service;
 
 import com.goldmen.home.map.district.domain.District;
 import com.goldmen.home.map.district.domain.DistrictRepository;
+import com.goldmen.home.map.district.fixture.DistrictFixture;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
@@ -39,7 +40,7 @@ class DistrictServiceTest {
         @Test
         void whenSuccess(){
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
+            District district = DistrictFixture.district1.createDistrict();
             given(districtRepository.findByCode(any())).willReturn(Optional.of(district));
 
             /* WHEN */
@@ -53,7 +54,7 @@ class DistrictServiceTest {
         @Test
         void whenFail(){
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
+            District district = DistrictFixture.district1.createDistrict();
             given(districtRepository.findByCode(any())).willReturn(Optional.empty());
 
             /* WHEN, THEN */
@@ -71,7 +72,7 @@ class DistrictServiceTest {
         @Test
         void whenSuccessByExist(){
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
+            District district = DistrictFixture.district1.createDistrict();
             given(districtRepository.findByCode(any())).willReturn(Optional.of(district));
 
             /* WHEN */
@@ -85,7 +86,7 @@ class DistrictServiceTest {
         @Test
         void whenSuccessBySave(){
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
+            District district = DistrictFixture.district1.createDistrict();
             given(districtRepository.findByCode(any())).willReturn(Optional.empty());
             given(districtRepository.save(any())).willReturn(district);
 
