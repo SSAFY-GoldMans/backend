@@ -2,9 +2,11 @@ package com.goldmen.home.map.legal.service;
 
 import com.goldmen.home.map.district.domain.District;
 import com.goldmen.home.map.district.domain.DistrictRepository;
+import com.goldmen.home.map.district.fixture.DistrictFixture;
 import com.goldmen.home.map.district.service.DistrictService;
 import com.goldmen.home.map.legal.domain.Legal;
 import com.goldmen.home.map.legal.domain.LegalRepository;
+import com.goldmen.home.map.legal.fixture.LegalFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,8 @@ class LegalServiceTest {
     @Mock
     private LegalRepository legalRepository;
 
+    private final Legal legal = LegalFixture.legal1.createLegal();
+
     @DisplayName("Legal 조회 테스트")
     @Nested
     class findLegalTest {
@@ -37,8 +41,6 @@ class LegalServiceTest {
         @Test
         void whenSuccessByAlreadyExist() {
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
-            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.of(legal));
 
             /* WHEN */
@@ -52,8 +54,6 @@ class LegalServiceTest {
         @Test
         void whenFail() {
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
-            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.empty());
             /* WHEN , THEN*/
             assertThrows(NoSuchElementException.class, () -> {
@@ -69,8 +69,6 @@ class LegalServiceTest {
         @Test
         void whenSuccessByAlreadyExist() {
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
-            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.of(legal));
 
             /* WHEN, THEN */
@@ -83,8 +81,6 @@ class LegalServiceTest {
         @Test
         void whenSuccessBySave() {
             /* GIVEN */
-            District district = District.builder().code("1100").name("역삼역").build();
-            Legal legal = Legal.builder().code("0011").name("강남구").district(district).build();
             given(legalRepository.findByCode(any())).willReturn(Optional.empty());
 
             /* WHEN , THEN */

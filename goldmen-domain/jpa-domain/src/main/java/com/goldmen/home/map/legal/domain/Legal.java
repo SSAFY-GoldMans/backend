@@ -2,7 +2,6 @@ package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 

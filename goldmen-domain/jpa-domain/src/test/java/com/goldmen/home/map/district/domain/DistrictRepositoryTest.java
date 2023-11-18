@@ -1,5 +1,6 @@
 package com.goldmen.home.map.district.domain;
 
+import com.goldmen.home.map.district.fixture.DistrictFixture;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,7 @@ public class DistrictRepositoryTest {
         @DisplayName("성공")
         @Test
         void whenSuccess() {
-            District district = District.builder().code("1100").name("역삼역").build();
+            District district = DistrictFixture.district1.createDistrict();
             districtRepository.save(district);
             em.flush();
             em.clear();
@@ -40,7 +41,7 @@ public class DistrictRepositoryTest {
         @Test
         void whenFailByCodeEmpty() {
             assertThrows(RuntimeException.class, () -> {
-                District district = District.builder().code("").name("역삼역").build();
+                District district = DistrictFixture.districtBlankCode.createDistrict();
                 districtRepository.save(district);
             });
         }
@@ -49,7 +50,7 @@ public class DistrictRepositoryTest {
         @Test
         void whenFailByNameEmpty() {
             assertThrows(RuntimeException.class, () -> {
-                District district = District.builder().code("1100123401235123").name("역삼역").build();
+                District district = DistrictFixture.districtTooLongCode.createDistrict();
                 districtRepository.save(district);
             });
         }

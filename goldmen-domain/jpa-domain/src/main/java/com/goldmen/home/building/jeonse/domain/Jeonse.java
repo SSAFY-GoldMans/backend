@@ -19,5 +19,5 @@ public class Jeonse {
     @Embedded
     private HouseInfo houseInfo;
 
-    private int price;
+    private int price; //단위: 만원
 }

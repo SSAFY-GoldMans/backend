@@ -2,11 +2,9 @@ package com.goldmen.home.map.district.domain;
 
 import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 import java.util.List;
