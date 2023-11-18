@@ -1,24 +1,26 @@
 package com.goldmen.home.vo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Arrays;
 
+@NoArgsConstructor
 @ToString
 @Getter
 public class Position {
 
+    @JsonProperty("x")
     private String longitude;
-    private String latitude;
-    private String address;
 
-    public Position(@JsonProperty("x") String longitude, @JsonProperty("y") String latitude, @JsonProperty("address_name") String address) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.address = address;
-    }
+    @JsonProperty("y")
+    private String latitude;
+
+    @JsonProperty("address_name")
+    private String address;
 
     public String getLegalName() {
         String[] array = address.split(" ");
