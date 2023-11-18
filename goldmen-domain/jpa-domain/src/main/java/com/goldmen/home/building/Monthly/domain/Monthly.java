@@ -19,8 +19,8 @@ public class Monthly {
     private HouseInfo houseInfo;
 
     @Column(nullable = false)
-    private int price;
+    private int price;  //만원
 
     @Column(nullable = false)
-    private int rent;
+    private int rent;   //만원
 }

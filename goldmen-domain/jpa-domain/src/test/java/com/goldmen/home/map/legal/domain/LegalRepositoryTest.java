@@ -2,6 +2,8 @@ package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import com.goldmen.home.map.district.domain.DistrictRepository;
+import com.goldmen.home.map.district.fixture.DistrictFixture;
+import com.goldmen.home.map.legal.fixture.LegalFixture;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
@@ -31,8 +33,8 @@ class LegalRepositoryTest {
         @DisplayName("성공")
         @Test
         void whenSuccess() {
-            District district = districtRepository.save(District.builder().code("1100").name("역삼역").build());
-            legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
+            District district = districtRepository.save(DistrictFixture.district1.createDistrict());
+            legalRepository.save(LegalFixture.legal1.createLegal(district));
 
             em.flush();
             em.clear();
@@ -46,8 +48,8 @@ class LegalRepositoryTest {
         @Test
         void whenFailByNotExistDistrict() {
             assertThrows(RuntimeException.class, () -> {
-                District district = District.builder().code("1100").name("역삼역").build();
-                legalRepository.save(Legal.builder().code("1100").name("강남구").district(district).build());
+                District district = DistrictFixture.district1.createDistrict();
+                legalRepository.save(LegalFixture.legal1.createLegal(district));
                 em.flush();
                 em.clear();
             });
