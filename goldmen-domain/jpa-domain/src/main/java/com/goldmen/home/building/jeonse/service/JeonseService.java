@@ -17,7 +17,7 @@ public class JeonseService {
     @Transactional
     public Jeonse save(Jeonse jeonse) {
         return jeonseRepository.findByHouseInfo(jeonse.getHouseInfo())
-                .orElse(jeonseRepository.save(jeonse));
+                .orElseGet(() -> jeonseRepository.save(jeonse));
     }
 
     public Jeonse findById(Jeonse jeonse) {

@@ -15,7 +15,7 @@ public class MonthlyService {
     @Transactional
     public Monthly save(Monthly monthly){
         return monthlyRepository.findByHouseInfo(monthly.getHouseInfo())
-                .orElse(monthlyRepository.save(monthly));
+                .orElseGet(() -> monthlyRepository.save(monthly));
     }
 
     public Monthly findById(Monthly monthly){

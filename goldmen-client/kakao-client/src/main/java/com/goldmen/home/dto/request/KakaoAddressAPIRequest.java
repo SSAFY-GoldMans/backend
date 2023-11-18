@@ -8,8 +8,8 @@ import lombok.*;
 public class KakaoAddressAPIRequest {
     private String sggNm;
     private String bjDongNm;
-    private String bobn;
-    private String bubn;
+    private int bobn;
+    private int bubn;
 
     public String makeRoadAddress() {
         return sggNm + " " + bjDongNm + " " +

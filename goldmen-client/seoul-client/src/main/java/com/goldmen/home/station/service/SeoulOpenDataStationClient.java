@@ -3,7 +3,7 @@ package com.goldmen.home.station.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.goldmen.home.station.config.property.StationProperties;
 import com.goldmen.home.station.vo.StationInfo;
-import com.goldmen.home.station.vo.StationInfoRaw;
+import com.goldmen.home.station.dto.response.StationInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class SeoulOpenDataStationClient {
      */
     public List<StationInfo> getStationInformationFile() throws IOException {
         ClassPathResource resource = new ClassPathResource(stationProperties.getStationPath());
-        StationInfoRaw stationInfoRaw = objectMapper.readValue(resource.getInputStream(), StationInfoRaw.class);
-        return stationInfoRaw.getStationInfoList();
+        StationInfoResponse response = objectMapper.readValue(resource.getInputStream(), StationInfoResponse.class);
+        return response.getStationInfoList();
     }
 }

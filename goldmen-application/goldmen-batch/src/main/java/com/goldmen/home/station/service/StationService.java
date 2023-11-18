@@ -48,8 +48,8 @@ public class StationService {
             stationService.save(Station
                     .builder()
                     .name(stationInfo.getStationName())
-                    .lat(Double.parseDouble(position.getLongitude()))
-                    .lat(Double.parseDouble(position.getLatitude()))
+                    .lat(position.getLongitude())
+                    .lat(position.getLatitude())
                     .code(Integer.parseInt(stationInfo.getStationCode()))
                     .line(line)
                     .legal(legal)

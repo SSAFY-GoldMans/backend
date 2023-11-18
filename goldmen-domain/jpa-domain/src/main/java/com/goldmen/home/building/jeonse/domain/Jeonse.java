@@ -1,7 +1,9 @@
 package com.goldmen.home.building.jeonse.domain;
 
 
+import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
+import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +22,8 @@ public class Jeonse {
     private HouseInfo houseInfo;
 
     private int price; //단위: 만원
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id")
+    private Building building;
 }

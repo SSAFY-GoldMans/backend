@@ -27,7 +27,7 @@ public class District {
 
     @Size(max = 10)
     @NotBlank
-    @Column(name = "district_code", nullable = false, length = 10)
+    @Column(name = "district_code",unique = true, nullable = false, length = 10)
     private String code;
 
     @OneToMany(mappedBy = "district")

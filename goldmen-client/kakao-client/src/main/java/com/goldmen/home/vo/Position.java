@@ -14,10 +14,10 @@ import java.util.Arrays;
 public class Position {
 
     @JsonProperty("x")
-    private String longitude;
+    private Double longitude;
 
     @JsonProperty("y")
-    private String latitude;
+    private Double latitude;
 
     @JsonProperty("address_name")
     private String address;
