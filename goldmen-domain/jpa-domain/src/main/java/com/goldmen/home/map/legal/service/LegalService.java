@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -15,12 +17,13 @@ public class LegalService {
     private final LegalRepository legalRepository;
 
     public Legal findLegal(Legal legal) {
-        return legalRepository.findByCode(legal.getCode())
+        return legalRepository.findByCodeAndDistrict(legal.getCode(),legal.getDistrict())
                 .orElseThrow();
     }
 
     @Transactional
     public Legal saveLegal(Legal legal) {
-        return legalRepository.findByCode(legal.getCode()).orElse(legalRepository.save(legal));
+        return legalRepository.findByCodeAndDistrict(legal.getCode(), legal.getDistrict())
+                .orElseGet(() -> legalRepository.save(legal));
     }
 }

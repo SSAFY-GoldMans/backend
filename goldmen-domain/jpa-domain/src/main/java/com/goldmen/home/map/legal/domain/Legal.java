@@ -2,9 +2,18 @@ package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+@Table(
+    uniqueConstraints={
+        @UniqueConstraint(
+            name="districtIdAndLegalCode",
+            columnNames={"legal_code", "district_id"}
+        )
+    }
+)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder

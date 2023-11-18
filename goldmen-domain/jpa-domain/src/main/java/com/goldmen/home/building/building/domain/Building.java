@@ -22,10 +22,10 @@ public class Building {
     private String type;
 
     @Column(nullable = false)
-    private int mainNumber;
+    private String mainNumber;
 
     @Column(nullable = false)
-    private int subNumber;
+    private String subNumber;
 
     @Column(nullable = false)
     private int constructionYear;

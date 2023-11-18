@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -26,7 +28,7 @@ public class DistrictRepositoryTest {
 
     @DisplayName("District 저장 테스트")
     @Nested
-    class saveDistrictTest {
+    class saveTest {
         @DisplayName("성공")
         @Test
         void whenSuccess() {
@@ -35,6 +37,18 @@ public class DistrictRepositoryTest {
             em.flush();
             em.clear();
             assertEquals(1, districtRepository.findAll().size());
+        }
+
+        @DisplayName("실패, 이미 저장되어 있을 때")
+        @Test
+        void whenFailByAlreadyExist() {
+            District district = DistrictFixture.district1.createDistrict();
+            districtRepository.save(district);
+            em.flush();
+            em.clear();
+            assertThrows(RuntimeException.class,()->{
+                districtRepository.save(DistrictFixture.district1.createDistrict());
+            });
         }
 
         @DisplayName("실패, 코드가 없을 때")
@@ -55,4 +69,33 @@ public class DistrictRepositoryTest {
             });
         }
     }
+
+    @DisplayName("District 조회 테스트")
+    @Nested
+    class findByCodeTest{
+        @DisplayName("성공")
+        @Test
+        void whenSuccess(){
+            District district = DistrictFixture.district1.createDistrict();
+            districtRepository.save(district);
+            em.flush();
+            em.clear();
+            em.close();
+            assertTrue(districtRepository.findByCode(district.getCode()).isPresent());
+        }
+
+        @Test
+        void whatIsThat(){
+            District district = DistrictFixture.district1.createDistrict();
+            districtRepository.save(district);
+            em.flush();
+            em.clear();
+            em.close();
+            District savedDistrict = districtRepository.findByCode(district.getCode()).orElse(districtRepository.save(district));
+            List<District> districtList = districtRepository.findAll();
+            assertEquals(district.getCode(),savedDistrict.getCode());
+            assertEquals(1,districtList.size());
+        }
+    }
+
 }

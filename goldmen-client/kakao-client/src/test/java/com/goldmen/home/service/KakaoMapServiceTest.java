@@ -15,12 +15,12 @@ public class KakaoMapServiceTest {
     @Autowired
     private KakaoMapService kakaoMapService;
 
-
     @DisplayName("kakaoAPI로 좌표 가져오기")
     @Test
     void getPositionWhenSuccess() {
         KakaoAddressAPIRequest request = KakaoAddressAPIRequest.builder().sggNm("은평구").bjDongNm("불광동").bobn("0105").bubn("0076").build();
         Position position = kakaoMapService.getPosition(request);
+        System.out.println(position);
         assertNotNull(position);
     }
 

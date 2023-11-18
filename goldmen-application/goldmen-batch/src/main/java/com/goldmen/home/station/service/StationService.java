@@ -1,5 +1,8 @@
 package com.goldmen.home.station.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.goldmen.home.station.dto.response.StationInfoResponse;
+import com.goldmen.home.station.vo.StationInfo;
 import com.goldmen.home.dto.request.KaKaoKeywordAPIRequest;
 import com.goldmen.home.map.legal.domain.Legal;
 import com.goldmen.home.map.legal.service.LegalService;
@@ -19,11 +22,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class StationService {
-    private SeoulOpenDataStationClient stationClient;
-    private KakaoMapService kakaoService;
-    private StationServiceImpl stationService;
-    private LineServiceImpl lineService;
-    private LegalService legalService;
+    private final SeoulOpenDataStationClient stationClient;
+    private final KakaoMapService kakaoService;
+    private final StationServiceImpl stationService;
+    private final LineServiceImpl lineService;
+    private final LegalService legalService;
+
+    private final ObjectMapper objectMapper;
 
     private List<StationInfo> getStationInformation() throws IOException {
         return stationClient.getStationInformationFile();
@@ -43,8 +48,8 @@ public class StationService {
             stationService.save(Station
                     .builder()
                     .name(stationInfo.getStationName())
-                    .lat(Double.parseDouble(position.getLongitude()))
-                    .lat(Double.parseDouble(position.getLatitude()))
+                    .lat(position.getLongitude())
+                    .lat(position.getLatitude())
                     .code(Integer.parseInt(stationInfo.getStationCode()))
                     .line(line)
                     .legal(legal)

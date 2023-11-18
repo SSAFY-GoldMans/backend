@@ -8,13 +8,13 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum BuildingFixture {
-    building1("강남빌딩","빌딩",1234,4321,2000,123.123457D,321.123455D),
-    building2("강남빌딩","빌딩",4321,1234,2000,123.123457D,321.123455D);
+    building1("강남빌딩","빌딩","1234","4312",2000,123.123457D,321.123455D),
+    building2("강남빌딩","빌딩","4321","1234",2000,123.123457D,321.123455D);
 
     private String name;
     private String type;
-    private int mainNumber;
-    private int subNumber;
+    private String mainNumber;
+    private String subNumber;
     private int constructionYear;
     private double lat;
     private double lng;

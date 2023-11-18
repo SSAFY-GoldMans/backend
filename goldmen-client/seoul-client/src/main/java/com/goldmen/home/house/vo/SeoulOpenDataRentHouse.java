@@ -2,16 +2,15 @@ package com.goldmen.home.house.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 
-public record SeoulOpenDataHouse(String accYear, String sggCd, String sggNm, String bjdongCd, String bjdongNm,
-                                 String landGbn, String landGbnNm, String bobn, String bubn, Integer flrNo,
-                                 String cntrctDe, String rentGbn, Double rentArea, String rentGtn, String rentFee,
-                                 String bldgNm, String buildYear, String houseGbnNm, String cntrctPrd,
-                                 String newRonSecd, String cntrctUpdtRqestAt, String beforeGrntyAmount,
-                                 String beforeMtRentChrge) {
+public record SeoulOpenDataRentHouse(String accYear, String sggCd, String sggNm, String bjdongCd, String bjdongNm,
+                                     String landGbn, String landGbnNm, String bobn, String bubn, Integer flrNo,
+                                     String cntrctDe, String rentGbn, Double rentArea, int rentGtn, int rentFee,
+                                     String bldgNm, int buildYear, String houseGbnNm, String cntrctPrd,
+                                     String newRonSecd, String cntrctUpdtRqestAt, String beforeGrntyAmount,
+                                     String beforeMtRentChrge) {
     @JsonCreator
-    public SeoulOpenDataHouse(
+    public SeoulOpenDataRentHouse(
             @JsonProperty("ACC_YEAR") String accYear,
             @JsonProperty("SGG_CD") String sggCd,
             @JsonProperty("SGG_NM") String sggNm,
@@ -25,10 +24,10 @@ public record SeoulOpenDataHouse(String accYear, String sggCd, String sggNm, Str
             @JsonProperty("CNTRCT_DE") String cntrctDe,
             @JsonProperty("RENT_GBN") String rentGbn,
             @JsonProperty("RENT_AREA") Double rentArea,
-            @JsonProperty("RENT_GTN") String rentGtn,
-            @JsonProperty("RENT_FEE") String rentFee,
+            @JsonProperty("RENT_GTN") int rentGtn,
+            @JsonProperty("RENT_FEE") int rentFee,
             @JsonProperty("BLDG_NM") String bldgNm,
-            @JsonProperty("BUILD_YEAR") String buildYear,
+            @JsonProperty("BUILD_YEAR") int buildYear,
             @JsonProperty("HOUSE_GBN_NM") String houseGbnNm,
             @JsonProperty("CNTRCT_PRD") String cntrctPrd,
             @JsonProperty("NEW_RON_SECD") String newRonSecd,

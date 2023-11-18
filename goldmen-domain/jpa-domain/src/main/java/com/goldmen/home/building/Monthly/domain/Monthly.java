@@ -1,5 +1,6 @@
 package com.goldmen.home.building.Monthly.domain;
 
+import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,4 +24,8 @@ public class Monthly {
 
     @Column(nullable = false)
     private int rent;   //만원
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id")
+    private Building building;
 }
