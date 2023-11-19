@@ -39,7 +39,7 @@ class StationServiceImplTest {
                 .name("강남역")
                 .lat(37.49808633653005)
                 .lng(127.02800140627488)
-                .code(222)
+                .code("222")
                 .line(line)
                 .legal(legal)
                 .build();

@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface LegalRepository extends JpaRepository<Legal, Integer> {
-    Optional<Legal> findByCodeAndDistrict(String Code,District district);
+    Optional<Legal> findByNameAndDistrict_Name(String legalName, String districtName);
+
+    Optional<Legal> findByCodeAndDistrict(String Code, District district);
 }

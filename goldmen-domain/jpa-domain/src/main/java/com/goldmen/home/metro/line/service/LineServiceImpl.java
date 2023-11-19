@@ -2,12 +2,15 @@ package com.goldmen.home.metro.line.service;
 
 import com.goldmen.home.metro.line.domain.Line;
 import com.goldmen.home.metro.line.domain.LineRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class LineServiceImpl implements LineModifyService, LineLoadService {
     private final LineRepository lineRepository;
 
@@ -19,9 +22,8 @@ public class LineServiceImpl implements LineModifyService, LineLoadService {
     }
 
     @Override
-    @Transactional
-    public Line find(Line line) {
+    public Line findByName(Line line) {
         return lineRepository.findByName(line.getName())
-                .orElseThrow();
+                .orElseThrow(NoSuchElementException::new);
     }
 }
