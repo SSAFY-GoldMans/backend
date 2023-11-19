@@ -19,8 +19,8 @@ public class Station {
     @Column(name = "station_name", nullable = false, length = 10)
     private String name;
 
-    @Column(name = "station_code", nullable = false)
-    private int code;
+    @Column(name = "station_code", nullable = false, length = 10)
+    private String code;
 
     @Column(nullable = false)
     private double lat;
