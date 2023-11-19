@@ -7,6 +7,7 @@ import com.goldmen.home.map.district.service.DistrictService;
 import com.goldmen.home.map.legal.domain.Legal;
 import com.goldmen.home.map.legal.service.LegalService;
 import com.goldmen.home.map.vo.SeoulOpenDataMap;
+import com.goldmen.home.mapper.BatchMapper;
 import com.goldmen.home.metro.line.domain.Line;
 import com.goldmen.home.metro.station.domain.Station;
 import com.goldmen.home.station.vo.StationInfo;
@@ -24,6 +25,7 @@ public class MapService {
 
     private final DistrictService districtService;
     private final LegalService legalService;
+    private final BatchMapper batchMapper;
 
     /**
      * 법정동 및 자치구 저장
@@ -32,11 +34,8 @@ public class MapService {
     public void saveMap() throws IOException {
         List<SeoulOpenDataMap> mapList = mapClient.getSeoulOpenDataMapList();
         for (SeoulOpenDataMap map : mapList) {
-            District district = districtService.saveDistrict(District.builder()
-                            .code(map.getSigunguCd())
-                            .name(map.getSigunguNm())
-                    .build());
-            legalService.saveLegal(Legal.builder().code(map.getBjdongCd()).name(map.getBjdongNm()).district(district).build());
+            District district = districtService.saveDistrict(batchMapper.toDistrict(map));
+            legalService.saveLegal(batchMapper.toLegal(map,district));
         }
     }
 }

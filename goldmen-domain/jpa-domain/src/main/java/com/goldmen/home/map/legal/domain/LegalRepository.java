@@ -9,4 +9,5 @@ public interface LegalRepository extends JpaRepository<Legal, Integer> {
     Optional<Legal> findByNameAndDistrict_Name(String legalName, String districtName);
 
     Optional<Legal> findByCodeAndDistrict(String Code, District district);
+
 }

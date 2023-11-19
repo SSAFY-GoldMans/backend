@@ -1,15 +1,11 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.building.Monthly.domain.Monthly;
 import com.goldmen.home.building.Monthly.service.MonthlyService;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.building.service.BuildingService;
-import com.goldmen.home.building.global.domain.HouseInfo;
-import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
-import com.goldmen.home.dto.request.KakaoAddressAPIRequest;
 import com.goldmen.home.house.dto.request.SeoulOpenDataRentHouseAPIRequest;
-import com.goldmen.home.house.mapper.RentHouseMapper;
+import com.goldmen.home.mapper.BatchMapper;
 import com.goldmen.home.house.vo.SeoulOpenDataRentHouse;
 import com.goldmen.home.house.vo.SeoulOpenDataRentHouseData;
 import com.goldmen.home.map.district.domain.District;
@@ -23,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,7 +31,7 @@ public class RentHouseService {
     private final KakaoMapService kakaoMapClient;
     private final JeonseService jeonseService;
     private final MonthlyService monthlyService;
-    private final RentHouseMapper rentHouseMapper;
+    private final BatchMapper batchMapper;
 
     /**
      * 전세집 데이터를 추출 및 DB에 저장한다.
@@ -62,15 +57,15 @@ public class RentHouseService {
     private void saveHouseData(List<SeoulOpenDataRentHouse> rentHouseList) {
         for (SeoulOpenDataRentHouse rentHouse : rentHouseList) {
             try {
-                District district = districtService.saveDistrict(rentHouseMapper.toDistrict(rentHouse));
-                Legal legal = legalService.saveLegal(rentHouseMapper.toLegal(rentHouse,district));
-                Position position = kakaoMapClient.getPosition(rentHouseMapper.toKakaoAddressAPIRequest(rentHouse));
-                Building building = buildingService.save(rentHouseMapper.toBuilding(rentHouse,legal,position));
+                District district = districtService.saveDistrict(batchMapper.toDistrict(rentHouse));
+                Legal legal = legalService.saveLegal(batchMapper.toLegal(rentHouse,district));
+                Position position = kakaoMapClient.getPosition(batchMapper.toKakaoAddressAPIRequest(rentHouse));
+                Building building = buildingService.save(batchMapper.toBuilding(rentHouse,legal,position));
 
                 if(rentHouse.rentGbn().equals("전세")){
-                    jeonseService.save(rentHouseMapper.toJeonse(rentHouse,building));
+                    jeonseService.save(batchMapper.toJeonse(rentHouse,building));
                 }else if(rentHouse.rentGbn().equals("월세")){
-                    monthlyService.save(rentHouseMapper.toMonthly(rentHouse,building));
+                    monthlyService.save(batchMapper.toMonthly(rentHouse,building));
                 }
             } catch (IndexOutOfBoundsException ignored) {
             }
