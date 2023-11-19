@@ -33,10 +33,10 @@ public class MapService {
         List<SeoulOpenDataMap> mapList = mapClient.getSeoulOpenDataMapList();
         for (SeoulOpenDataMap map : mapList) {
             District district = districtService.saveDistrict(District.builder()
-                            .code(map.getBjdongCd())
-                            .name(map.getBjdongNm())
+                            .code(map.getSigunguCd())
+                            .name(map.getSigunguNm())
                     .build());
-            legalService.saveLegal(Legal.builder().code(map.getSigunguCd()).name(map.getSigunguNm()).district(district).build());
+            legalService.saveLegal(Legal.builder().code(map.getBjdongCd()).name(map.getBjdongNm()).district(district).build());
         }
     }
 }
