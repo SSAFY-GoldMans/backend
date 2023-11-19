@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @DataJpaTest
@@ -53,6 +56,30 @@ class LegalRepositoryTest {
                 em.flush();
                 em.clear();
             });
+        }
+    }
+
+    @DisplayName("Legal 찾기")
+    @Nested
+    class FindLegalTest {
+        @DisplayName("이름으로 Legal 찾기")
+        @Test
+        void whenFindWithNameTestSuccess() {
+            /* Given */
+            District district1 = DistrictFixture.district1.createDistrict();
+            District district2 = DistrictFixture.district2.createDistrict();
+            districtRepository.saveAll(List.of(district1, district2));
+
+            String legalName = "신사동";
+            legalRepository.save(Legal.builder().district(district1).name(legalName).code("123").build());
+            legalRepository.save(Legal.builder().district(district2).name(legalName).code("1125").build());
+
+            /* When */
+            Legal found = legalRepository.findByNameAndDistrict_Name(legalName, district1.getName()).get();
+
+            /* Then */
+            assertEquals(found.getName(), legalName);
+            assertEquals(found.getDistrict().getName(), district1.getName());
         }
     }
 }
