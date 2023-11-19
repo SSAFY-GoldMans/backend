@@ -18,7 +18,7 @@ public class LineServiceImpl implements LineModifyService, LineLoadService {
     @Transactional
     public Line save(Line line) {
         return lineRepository.findByName(line.getName())
-                .orElse(lineRepository.save(line));
+                .orElseGet(() -> lineRepository.save(line));
     }
 
     @Override

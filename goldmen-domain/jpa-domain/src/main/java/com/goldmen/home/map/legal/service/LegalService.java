@@ -21,6 +21,11 @@ public class LegalService {
         return legalRepository.findByNameAndDistrict_Name(legalName, districtName).orElseThrow();
     }
 
+    public Legal findByCodeAndDistrict(Legal legal) {
+        return legalRepository.findByCodeAndDistrict(legal.getCode(), legal.getDistrict())
+                .orElseThrow();
+    }
+
     @Transactional
     public Legal saveLegal(Legal legal) {
         return legalRepository.findByCodeAndDistrict(legal.getCode(), legal.getDistrict())

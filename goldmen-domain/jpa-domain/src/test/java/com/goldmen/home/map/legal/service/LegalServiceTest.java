@@ -1,9 +1,5 @@
 package com.goldmen.home.map.legal.service;
 
-import com.goldmen.home.map.district.domain.District;
-import com.goldmen.home.map.district.domain.DistrictRepository;
-import com.goldmen.home.map.district.fixture.DistrictFixture;
-import com.goldmen.home.map.district.service.DistrictService;
 import com.goldmen.home.map.legal.domain.Legal;
 import com.goldmen.home.map.legal.domain.LegalRepository;
 import com.goldmen.home.map.legal.fixture.LegalFixture;
@@ -44,7 +40,7 @@ class LegalServiceTest {
             given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.of(legal));
 
             /* WHEN */
-            Legal gotLegal = legalService.findLegal(legal);
+            Legal gotLegal = legalService.findByCodeAndDistrict(legal);
 
             /* THEN */
             assertEquals(legal.getCode(), gotLegal.getCode());
@@ -57,7 +53,7 @@ class LegalServiceTest {
             given(legalRepository.findByCodeAndDistrict(any(),any())).willReturn(Optional.empty());
             /* WHEN , THEN*/
             assertThrows(NoSuchElementException.class, () -> {
-                Legal gotLegal = legalService.findLegal(legal);
+                Legal gotLegal = legalService.findByCodeAndDistrict(legal);
             });
         }
     }
@@ -73,7 +69,7 @@ class LegalServiceTest {
 
             /* WHEN, THEN */
             assertDoesNotThrow(()->{
-                legalService.findLegal(legal);
+                legalService.findByCodeAndDistrict(legal);
             });
         }
 
@@ -85,7 +81,7 @@ class LegalServiceTest {
 
             /* WHEN , THEN */
             assertThrows(NoSuchElementException.class, () -> {
-                legalService.findLegal(legal);
+                legalService.findByCodeAndDistrict(legal);
             });
         }
     }

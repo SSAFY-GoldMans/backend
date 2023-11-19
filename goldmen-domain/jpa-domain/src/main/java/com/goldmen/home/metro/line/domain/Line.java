@@ -18,7 +18,7 @@ public class Line {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "line_name", nullable = false)
+    @Column(name = "line_name",unique = true, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "line")
