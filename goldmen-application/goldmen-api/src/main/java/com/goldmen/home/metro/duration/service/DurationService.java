@@ -13,7 +13,7 @@ public class DurationService {
 
     public List<Integer> getNearStationByTime(int stationId, int time) {
         List<Duration> durationList = durationServiceImpl.findNearStationByStationIdAndTime(stationId, time);
-        return durationList.stream().map(duration -> {
+        return durationList.stream().map(duration -> { //start와 end 중 다른 역의 아이디 추출
             if (duration.getEndStation().getId() == stationId) {
                 return duration.getStartStation().getId();
             } else {
