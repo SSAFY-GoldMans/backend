@@ -4,6 +4,7 @@ import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
 import lombok.*;
 
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
