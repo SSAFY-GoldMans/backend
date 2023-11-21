@@ -23,7 +23,7 @@ public class HouseService {
         return buildingService.findALlByStation(station);
     }
 
-    public int getBuildingMiddlePrice(Station station, String buildingType, String priceType) throws NoSuchMethodException {
+    public int getBuildingMiddlePrice(Station station, String buildingType, String priceType) {
         List<Building> buildingList = getBuildingList(station).stream()
                 .filter(building -> building.getType().equals(buildingType)).toList();
         if (priceType.equals("JEONSE")) {
@@ -31,13 +31,11 @@ public class HouseService {
                     .map(jeonseService::findAllByBuildingId)
                     .flatMap(List::stream).toList();
             return jeonsesList.get(jeonsesList.size() / 2).getPrice();
-        } else if (priceType.equals("MONTHLY")) {
+        } else {
             List<Monthly> monthlyList = buildingList.stream()
                     .map(monthlyService::findAllByBuildingId)
                     .flatMap(List::stream).toList();
             return monthlyList.get(monthlyList.size() / 2).getRent();
-        } else {
-            throw new NoSuchMethodException("가격 타입 매칭 에러");
         }
     }
 }

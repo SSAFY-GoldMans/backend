@@ -1,5 +1,6 @@
 package com.goldmen.home.metro.service;
 
+import com.goldmen.home.building.service.BuildingEnum;
 import com.goldmen.home.building.service.HouseService;
 import com.goldmen.home.metro.dto.NearMetroRequest;
 import com.goldmen.home.metro.dto.NearMetroResponse;
@@ -11,9 +12,9 @@ import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.util.List;
-import java.util.NoSuchElementException;
+
+import static com.goldmen.home.global.Mapper.stationToNearMetroResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +28,9 @@ public class NearService {
         List<Duration> durationList = durationService.getNearDurationByTime(standId, request.time());
         List<NearMetroResponse> responseList = durationList.stream().map(duration -> {
             Station station = getDiffStation(duration, standId);
-            String buildingTypeKorean;
-            if (request.buildingType().equals("APT")) {
-                buildingTypeKorean = "아파트";
-            } else if (request.buildingType().equals("OFFICETEL")) {
-                buildingTypeKorean = "오피스텔";
-            } else {
-                throw new NoSuchElementException("건물 타입 매칭 에러");
-            }
-            int middlePrice = 0;
-            try {
-                middlePrice = houseService.getBuildingMiddlePrice(station, buildingTypeKorean, request.priceType());
-            } catch (NoSuchMethodException e) {
-                System.out.println(request);
-                throw new RuntimeException(e);
-            }
-            return new NearMetroResponse(station.getName() + "역", duration.getTime() + "분", station.getLegal().getDistrict().getName() + " " + station.getLegal().getName(), priceToStr(middlePrice, 10000));
+            String buildingTypeKorean = BuildingEnum.valueOf(request.buildingType()).strKorean;
+            int middlePrice = houseService.getBuildingMiddlePrice(station, buildingTypeKorean, request.priceType());
+            return stationToNearMetroResponse(station, middlePrice, duration.getTime());
         }).toList();
         return ApiResponse.valueOf(responseList);
     }
@@ -53,15 +41,6 @@ public class NearService {
             return duration.getStartStation();
         } else {
             return duration.getEndStation();
-        }
-    }
-
-    String priceToStr(int price, int unit) {
-        long unitPrice = (long) price * unit;
-        if (unitPrice >= 1e8) {
-            return new DecimalFormat("#,##0.##억원").format(unitPrice / 1e8);
-        } else {
-            return new DecimalFormat("#,##0.##만원").format(unitPrice / 1e4);
         }
     }
 }
