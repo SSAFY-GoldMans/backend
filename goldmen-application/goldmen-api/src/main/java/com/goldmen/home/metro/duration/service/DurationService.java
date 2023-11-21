@@ -11,14 +11,7 @@ import java.util.List;
 public class DurationService {
     private final DurationServiceImpl durationServiceImpl;
 
-    public List<Integer> getNearStationByTime(int stationId, int time) {
-        List<Duration> durationList = durationServiceImpl.findNearStationByStationIdAndTime(stationId, time);
-        return durationList.stream().map(duration -> { //start와 end 중 다른 역의 아이디 추출
-            if (duration.getEndStation().getId() == stationId) {
-                return duration.getStartStation().getId();
-            } else {
-                return duration.getEndStation().getId();
-            }
-        }).toList();
+    public List<Duration> getNearDurationByTime(int stationId, int time) {
+        return durationServiceImpl.findNearStationByStationIdAndTime(stationId, time);
     }
 }
