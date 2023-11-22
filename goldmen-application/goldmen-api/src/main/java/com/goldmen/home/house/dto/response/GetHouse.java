@@ -8,7 +8,7 @@ import lombok.Builder;
 @Builder
 class GetHouse {
     @JsonProperty
-    private int houseId;
+    private int id;
 
     @JsonProperty
     private String houseName;
