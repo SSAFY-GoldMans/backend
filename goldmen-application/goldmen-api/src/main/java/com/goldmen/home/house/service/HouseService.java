@@ -9,6 +9,7 @@ import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
 import com.goldmen.home.house.dto.request.GetHouseRequest;
 import com.goldmen.home.house.dto.response.GetHousePositionResponse;
+import com.goldmen.home.house.dto.request.SaleableDetailRequest;
 import com.goldmen.home.house.dto.response.GetHouseResponse;
 import com.goldmen.home.mapper.ApiMapper;
 import com.goldmen.home.metro.station.domain.Station;
@@ -89,5 +90,14 @@ public class HouseService {
                     .flatMap(List::stream).toList();
             return monthlyList.get(monthlyList.size() / 2).getRent();
         }
+    }
+
+    public Saleable getSaleable(SaleableDetailRequest request) {
+        Saleable saleable = null;
+        switch (request.priceEnum()) {
+            case JEONSE -> saleable = jeonseService.findById(Jeonse.builder().id(request.saleableId()).build());
+            case MONTHLY -> saleable = monthlyService.findById(Monthly.builder().id(request.saleableId()).build());
+        }
+        return saleable;
     }
 }
