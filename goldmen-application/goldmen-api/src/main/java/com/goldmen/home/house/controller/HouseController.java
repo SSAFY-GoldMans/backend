@@ -1,8 +1,10 @@
 package com.goldmen.home.house.controller;
 
 import com.goldmen.home.house.dto.request.GetHouseRequest;
+import com.goldmen.home.house.dto.request.SaleableDetailRequest;
 import com.goldmen.home.house.dto.response.GetHousePositionResponse;
 import com.goldmen.home.house.dto.response.GetHouseResponse;
+import com.goldmen.home.house.dto.response.SaleableDetailResponse;
 import com.goldmen.home.house.service.HouseService;
 import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +35,11 @@ public class HouseController {
         log.info(response.getBody().housePositionList().toString());
         return ResponseEntity.ok(response);
     }
-}
 
+    @PostMapping("/detail")
+    public ResponseEntity<ApiResponse<SaleableDetailResponse>> getSaleableDetail(@RequestBody SaleableDetailRequest request) {
+        ApiResponse<SaleableDetailResponse> response = houseService.getSaleable(request);
+        log.info(response.getBody().toString());
+        return ResponseEntity.ok(response);
+    }
+}

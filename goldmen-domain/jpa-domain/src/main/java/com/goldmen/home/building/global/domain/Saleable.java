@@ -6,4 +6,10 @@ public interface Saleable {
     int getId();
 
     Building getBuilding();
+
+    double getArea();
+
+    int getPrice();
+
+    int getFloor();
 }

@@ -27,4 +27,14 @@ public class Jeonse implements Saleable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private Building building;
+
+    @Override
+    public int getFloor() {
+        return houseInfo.getFloor();
+    }
+
+    @Override
+    public double getArea() {
+        return houseInfo.getArea();
+    }
 }

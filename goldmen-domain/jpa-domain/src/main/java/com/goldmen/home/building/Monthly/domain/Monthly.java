@@ -29,4 +29,14 @@ public class Monthly implements Saleable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private Building building;
+
+    @Override
+    public double getArea() {
+        return houseInfo.getArea();
+    }
+
+    @Override
+    public int getFloor() {
+        return houseInfo.getFloor();
+    }
 }
