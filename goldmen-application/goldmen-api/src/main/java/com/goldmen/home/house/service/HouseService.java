@@ -11,7 +11,7 @@ import com.goldmen.home.house.dto.request.GetHouseRequest;
 import com.goldmen.home.house.dto.response.GetHouseResponse;
 import com.goldmen.home.mapper.ApiMapper;
 import com.goldmen.home.metro.station.domain.Station;
-import com.goldmen.home.metro.station.service.StationReadService;
+import com.goldmen.home.metro.station.service.StationFindService;
 import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class HouseService {
     private final BuildingService buildingService;
-    private final StationReadService stationReadService;
+    private final StationFindService stationReadService;
     private final JeonseService jeonseService;
     private final MonthlyService monthlyService;
     private final ApiMapper apiMapper;
