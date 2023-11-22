@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface StationRepository extends JpaRepository<Station, Integer> {
     boolean existsByNameAndLine(String name, Line line);
 
+    Optional<Station> findByName(String name);
     Optional<Station> findFirstByName(String name);
 }

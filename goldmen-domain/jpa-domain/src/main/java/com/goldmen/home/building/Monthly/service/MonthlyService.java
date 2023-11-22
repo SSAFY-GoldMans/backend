@@ -1,5 +1,6 @@
 package com.goldmen.home.building.Monthly.service;
 
+import com.goldmen.home.building.Monthly.cond.FindAllCondition;
 import com.goldmen.home.building.Monthly.domain.Monthly;
 import com.goldmen.home.building.Monthly.domain.MonthlyRepository;
 import com.goldmen.home.building.building.domain.Building;
@@ -24,7 +25,9 @@ public class MonthlyService {
     public Monthly findById(Monthly monthly) {
         return monthlyRepository.findById(monthly.getId()).orElseThrow();
     }
-
+    public List<Monthly> findAllByBuilding(Building building, FindAllCondition condition) {
+        return monthlyRepository.findAllByBuildingAndCond(building, condition);
+    }
     public List<Monthly> findAllByBuildingId(Building building) {
         return monthlyRepository.findAllByBuilding(building);
     }

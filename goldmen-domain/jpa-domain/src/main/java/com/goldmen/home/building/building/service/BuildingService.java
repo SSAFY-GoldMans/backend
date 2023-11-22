@@ -34,4 +34,8 @@ public class BuildingService {
     public List<Building> findALlByStation(Station station){
         return buildingRepository.findAllByLocationAndDist(station.getLat(),station.getLng(),800);
     }
+
+    public List<Building> findALlByStation(Station station,String buildingType){
+        return buildingRepository.findAllByLocationAndDistAndBuildingType(station.getLat(),station.getLng(),800,buildingType);
+    }
 }

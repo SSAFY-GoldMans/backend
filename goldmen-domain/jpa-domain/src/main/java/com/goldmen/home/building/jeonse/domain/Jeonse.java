@@ -3,6 +3,7 @@ package com.goldmen.home.building.jeonse.domain;
 
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
+import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import lombok.*;
 @Builder
 @Getter
 @Entity
-public class Jeonse {
+public class Jeonse implements Saleable {
     @Id
     @Column(name = "jeonse_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
