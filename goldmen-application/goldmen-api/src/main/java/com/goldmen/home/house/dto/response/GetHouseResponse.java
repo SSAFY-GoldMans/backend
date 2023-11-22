@@ -19,10 +19,10 @@ public class GetHouseResponse {
     }
 
     public static GetHouseResponse from(List<Saleable> list) {
-        if(list.isEmpty()) return new GetHouseResponse(new ArrayList<>());
+        if (list.isEmpty()) return new GetHouseResponse(new ArrayList<>());
         if (list.get(0) instanceof Jeonse) {
             return new GetHouseResponse(toJeonse(list));
-        }else{
+        } else {
             return new GetHouseResponse(toMonthly(list));
         }
     }
@@ -37,7 +37,7 @@ public class GetHouseResponse {
                         .address(convertAddress(jeonse))
                         .year(jeonse.getBuilding().getConstructionYear() + " 년")
                         .floor(jeonse.getHouseInfo().getFloor())
-                        .price(convertPrice(jeonse.getPrice(), "보증금"))
+                        .price(convertPrice(jeonse.getPrice()))
                         .area(convertArea(jeonse.getHouseInfo().getArea()))
                         .build()).toList();
     }
@@ -51,7 +51,7 @@ public class GetHouseResponse {
                         .address(convertAddress(monthly))
                         .year(monthly.getBuilding().getConstructionYear() + " 년")
                         .floor(monthly.getHouseInfo().getFloor())
-                        .price(convertPrice(monthly.getPrice(), "보증금") + " " + convertPrice(monthly.getRent(), "월세"))
+                        .price(convertPrice(monthly.getPrice()) + " / " + convertPrice(monthly.getRent()))
                         .area(convertArea(monthly.getHouseInfo().getArea()))
                         .build())
                 .toList();
@@ -72,13 +72,11 @@ public class GetHouseResponse {
     }
 
     private static String convertArea(double area) {
-        return String.format("%d", Math.round(area / 3.3));
+        return String.format("%d평", Math.round(area / 3.3));
     }
 
-    private static String convertPrice(int price, String type) {
-        StringBuilder sb = new StringBuilder(type + " ");
-        if (price >= 1e4) sb.append(Math.round(price / 1e4)).append("억원");
-        else sb.append(price).append("만원");
-        return sb.toString();
+    private static String convertPrice(int price) {
+        if (price >= 1e4) return Math.round(price / 1e4) + "억원";
+        else return price + "만원";
     }
 }
