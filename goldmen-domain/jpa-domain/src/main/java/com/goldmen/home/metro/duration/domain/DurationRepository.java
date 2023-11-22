@@ -16,6 +16,7 @@ public interface DurationRepository extends JpaRepository<Duration, Integer> {
             "join fetch d.startStation.legal.district " +
             "join fetch d.endStation.legal.district " +
             "where :time >= d.time " +
-            "AND (d.endStation.id = :station_id OR d.startStation.id = :station_id)")
+            "AND (d.endStation.id = :station_id OR d.startStation.id = :station_id) " +
+            "order by d.time")
     List<Duration> findNearStationByStationIdAndTime(@Param("station_id") int stationId, @Param("time") int time);
 }
