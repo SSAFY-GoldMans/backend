@@ -26,7 +26,9 @@ public class HouseService {
     public int getBuildingMiddlePrice(Station station, String buildingType, String priceType) {
         List<Building> buildingList = getBuildingList(station).stream()
                 .filter(building -> building.getType().equals(buildingType)).toList();
-        if (priceType.equals("JEONSE")) {
+        if (buildingList.isEmpty()) {
+            return 0;
+        } else if (priceType.equals("JEONSE")) {
             List<Jeonse> jeonsesList = buildingList.stream()
                     .map(jeonseService::findAllByBuildingId)
                     .flatMap(List::stream).toList();
