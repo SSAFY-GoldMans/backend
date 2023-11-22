@@ -4,6 +4,7 @@ import com.goldmen.home.building.Monthly.domain.Monthly;
 import com.goldmen.home.building.Monthly.service.MonthlyService;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.building.service.BuildingService;
+import com.goldmen.home.building.global.domain.PriceEnum;
 import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -85,20 +87,27 @@ public class HouseService {
             List<Jeonse> jeonsesList = buildingList.stream()
                     .map(jeonseService::findAllByBuildingId)
                     .flatMap(List::stream).toList();
+            if (jeonsesList.isEmpty()) {
+                return 0;
+            }
             return jeonsesList.get(jeonsesList.size() / 2).getPrice();
         } else {
             List<Monthly> monthlyList = buildingList.stream()
                     .map(monthlyService::findAllByBuildingId)
                     .flatMap(List::stream).toList();
+            if (monthlyList.isEmpty()) {
+                return 0;
+            }
             return monthlyList.get(monthlyList.size() / 2).getRent();
         }
     }
 
     public ApiResponse<SaleableDetailResponse> getSaleable(SaleableDetailRequest request) {
         Saleable saleable = null;
-        switch (request.priceEnum()) {
-            case JEONSE -> saleable = jeonseService.findById(Jeonse.builder().id(request.saleableId()).build());
-            case MONTHLY -> saleable = monthlyService.findById(Monthly.builder().id(request.saleableId()).build());
+        if (Objects.requireNonNull(request.priceEnum()) == PriceEnum.JEONSE) {
+            saleable = jeonseService.findById(Jeonse.builder().id(request.saleableId()).build());
+        } else if (request.priceEnum() == PriceEnum.MONTHLY) {
+            saleable = monthlyService.findById(Monthly.builder().id(request.saleableId()).build());
         }
         return ApiResponse.valueOf(SaleableDetailResponse.from(saleable));
     }
