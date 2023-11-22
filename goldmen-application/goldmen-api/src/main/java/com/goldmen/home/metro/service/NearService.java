@@ -1,7 +1,7 @@
 package com.goldmen.home.metro.service;
 
-import com.goldmen.home.building.service.BuildingEnum;
-import com.goldmen.home.building.service.HouseService;
+import com.goldmen.home.building.building.domain.BuildingEnum;
+import com.goldmen.home.house.service.HouseService;
 import com.goldmen.home.metro.dto.NearMetroRequest;
 import com.goldmen.home.metro.dto.NearMetroResponse;
 import com.goldmen.home.metro.duration.domain.Duration;

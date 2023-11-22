@@ -1,4 +1,4 @@
-package com.goldmen.home.building.service;
+package com.goldmen.home.building.building.domain;
 
 public enum BuildingEnum {
     APT("아파트"), OFFICETEL("오피스텔");

@@ -23,10 +23,12 @@ public class StationServiceImpl implements StationModifyService, StationFindServ
         return stationRepository.save(station);
     }
 
+    @Override
     public Station findByName(String name) {
         return stationRepository.findByName(name).orElseThrow();
     }
 
+    @Override
     public Station findFirstStationByName(String name) {
         return stationRepository.findFirstByName(name).orElseThrow(() -> new NoSuchElementException("No value present " + name));
     }
