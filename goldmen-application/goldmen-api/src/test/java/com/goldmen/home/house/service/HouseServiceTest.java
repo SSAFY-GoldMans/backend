@@ -1,5 +1,6 @@
 package com.goldmen.home.house.service;
 
+import com.goldmen.home.building.building.domain.BuildingEnum;
 import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.house.dto.request.Area;
@@ -26,7 +27,7 @@ class HouseServiceTest {
 
     @Test
     void getHouse() {
-        GetHouseRequest request = new GetHouseRequest("오피스텔","Monthly","역삼",new Price(null,null),new Area(null,null),new Rent(null,null));
+        GetHouseRequest request = new GetHouseRequest(BuildingEnum.OFFICETEL,"Monthly","역삼",new Price(null,null),new Area(null,null),new Rent(null,null));
         assertDoesNotThrow(() -> {
             ApiResponse<GetHouseResponse> response = houseService.getHouse(request);
             System.out.println( response.getBody().getHouseList().size());

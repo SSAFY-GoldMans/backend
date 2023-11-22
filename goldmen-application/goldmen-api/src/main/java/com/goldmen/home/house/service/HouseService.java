@@ -8,8 +8,8 @@ import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
 import com.goldmen.home.house.dto.request.GetHouseRequest;
-import com.goldmen.home.house.dto.response.GetHousePositionResponse;
 import com.goldmen.home.house.dto.request.SaleableDetailRequest;
+import com.goldmen.home.house.dto.response.GetHousePositionResponse;
 import com.goldmen.home.house.dto.response.GetHouseResponse;
 import com.goldmen.home.house.dto.response.SaleableDetailResponse;
 import com.goldmen.home.mapper.ApiMapper;
@@ -32,8 +32,8 @@ public class HouseService {
     private final ApiMapper apiMapper;
 
     public ApiResponse<GetHouseResponse> getHouse(GetHouseRequest request) {
-        Station station = stationReadService.findByName(request.getStationName());
-        List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingType());
+        Station station = stationReadService.findByName(request.getStationName().substring(0, request.getStationName().length() - 1));
+        List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingEnum().strKorean);
         if (request.getRentType().equals("JEONSE")) {
             List<Saleable> jeonseList = getJeonse(buildingList, request);
             return ApiResponse.valueOf(GetHouseResponse.from(jeonseList));
@@ -44,8 +44,8 @@ public class HouseService {
     }
 
     public ApiResponse<GetHousePositionResponse> getHousePosition(GetHouseRequest request) {
-        Station station = stationReadService.findByName(request.getStationName());
-        List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingType());
+        Station station = stationReadService.findByName(request.getStationName().substring(0, request.getStationName().length() - 1));
+        List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingEnum().strKorean);
         if (request.getRentType().equals("JEONSE")) {
             List<Saleable> jeonseList = getJeonse(buildingList, request);
             return ApiResponse.valueOf(GetHousePositionResponse.from(jeonseList));

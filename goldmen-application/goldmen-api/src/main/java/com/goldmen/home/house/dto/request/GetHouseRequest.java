@@ -2,15 +2,14 @@ package com.goldmen.home.house.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.goldmen.home.building.building.domain.BuildingEnum;
 import lombok.Getter;
 import lombok.ToString;
 
 @ToString
 @Getter
 public class GetHouseRequest {
-    private String buildingType;
+    private BuildingEnum buildingEnum;
 
     private String rentType = "월세";
 
@@ -22,9 +21,9 @@ public class GetHouseRequest {
     private Rent rent;
 
     @JsonCreator
-    public GetHouseRequest(@JsonProperty("buildingType") String buildingType, @JsonProperty("rentType") String rentType, @JsonProperty("stationName") String stationName,
+    public GetHouseRequest(@JsonProperty("buildingType") BuildingEnum buildingEnum, @JsonProperty("rentType") String rentType, @JsonProperty("stationName") String stationName,
                            @JsonProperty(value = "price") Price price, @JsonProperty("area") Area area, @JsonProperty("rent") Rent rent) {
-        this.buildingType = buildingType;
+        this.buildingEnum = buildingEnum;
         this.rentType = rentType;
         this.stationName = stationName;
         if (price == null) this.price = new Price();

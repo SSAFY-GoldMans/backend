@@ -14,7 +14,7 @@ public class ApiMapper {
     public FindAllCondition toFindAllCondition(GetHouseRequest request){
         log.info(request.toString());
         return FindAllCondition.builder()
-                .buildingType(request.getBuildingType())
+                .buildingType(request.getBuildingEnum().strKorean)
                 .price(new Price(request.getPrice().getMax(),request.getPrice().getMin()))
                 .rent(new Rent(request.getRent().getMax(),request.getRent().getMin()))
                 .area(new Area(request.getArea().getMax(),request.getArea().getMin()))
