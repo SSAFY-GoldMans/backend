@@ -32,7 +32,8 @@ public class HouseService {
     private final ApiMapper apiMapper;
 
     public ApiResponse<GetHouseResponse> getHouse(GetHouseRequest request) {
-        Station station = stationReadService.findByName(request.getStationName().substring(0, request.getStationName().length() - 1));
+        Station station = stationReadService.findFirstStationByName(
+                request.getStationName().substring(0, request.getStationName().length() - 1));
         List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingEnum().strKorean);
         if (request.getRentType().equals("JEONSE")) {
             List<Saleable> jeonseList = getJeonse(buildingList, request);
