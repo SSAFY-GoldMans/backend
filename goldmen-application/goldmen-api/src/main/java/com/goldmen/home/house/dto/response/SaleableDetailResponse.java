@@ -15,7 +15,15 @@ public record SaleableDetailResponse(
         @JsonProperty("address") String address
 ) {
     public static SaleableDetailResponse from(Saleable saleable) {
-        return new SaleableDetailResponse(saleable.getId(), null, saleable.getBuilding().getName(), convertPrice(saleable.getPrice(), ""), convertArea(saleable.getArea()), (int) (saleable.getFloor() / 3.3), convertAddress(saleable));
+        return new SaleableDetailResponse(
+                saleable.getId(),
+                null,
+                saleable.getBuilding().getName(),
+                convertPrice(saleable.getPrice()),
+                convertArea(saleable.getArea()),
+                (int) (saleable.getFloor() / 3.3),
+                convertAddress(saleable)
+        );
     }
 
     private static String convertAddress(Saleable saleable) {
@@ -41,13 +49,11 @@ public record SaleableDetailResponse(
     }
 
     private static String convertArea(double area) {
-        return String.format("%d", Math.round(area / 3.3));
+        return String.format("%d평", Math.round(area / 3.3));
     }
 
-    private static String convertPrice(int price, String type) {
-        StringBuilder sb = new StringBuilder(type + " ");
-        if (price >= 1e4) sb.append(Math.round(price / 1e4)).append("억원");
-        else sb.append(price).append("만원");
-        return sb.toString();
+    private static String convertPrice(int price) {
+        if (price >= 1e4) return Math.round(price / 1e4) + "억원";
+        else return price + "만원";
     }
 }
