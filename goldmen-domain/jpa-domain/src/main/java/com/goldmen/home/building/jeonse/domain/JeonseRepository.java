@@ -1,7 +1,6 @@
 package com.goldmen.home.building.jeonse.domain;
 
 import com.goldmen.home.building.Monthly.cond.FindAllCondition;
-
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +23,11 @@ public interface JeonseRepository extends JpaRepository<Jeonse, Integer> {
             "and j.houseInfo.area <= :#{#cond.area.max} " +
             "order by j.price")
     List<Jeonse> findAllByBuildingAndCond(@Param("building") Building building, @Param("cond") FindAllCondition cond);
+
+    @Query(value = "select j from Jeonse j " +
+            "join fetch j.building " +
+            "join fetch j.building.legal " +
+            "join fetch j.building.legal.district " +
+            "where j.id = :id")
+    Optional<Jeonse> findById(@Param("id") int id);
 }
