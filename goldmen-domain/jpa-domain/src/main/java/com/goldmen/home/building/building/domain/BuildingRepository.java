@@ -27,4 +27,11 @@ public interface BuildingRepository extends JpaRepository<Building, Integer> {
             "where ST_Distance_Sphere(Point(:lng, :lat), POINT(b.lng, b.lat)) <= :dist " +
             "order by ST_Distance_Sphere(Point(:lng, :lat), POINT(b.lng, b.lat))", nativeQuery = true)
     List<Building> findAllByLocationAndDist(@Param("lat") double lat, @Param("lng") double lng, @Param("dist") int dist);
+
+    @Query(value = "select b.* " +
+            "from building b " +
+            "where ST_Distance_Sphere(Point(:lng, :lat), POINT(b.lng, b.lat)) <= :dist " +
+            "and b.building_type = :building_type " +
+            "order by ST_Distance_Sphere(Point(:lng, :lat), POINT(b.lng, b.lat))", nativeQuery = true)
+    List<Building> findAllByLocationAndDistAndBuildingType(@Param("lat") double lat, @Param("lng") double lng, @Param("dist") int dist,@Param("building_type") String buildingType);
 }

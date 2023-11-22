@@ -1,0 +1,5 @@
+spring:
+  config:
+    import:
+      - security/application-api.yml
+      - security/application-database.yml
