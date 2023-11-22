@@ -8,6 +8,7 @@ import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
 import com.goldmen.home.house.dto.request.GetHouseRequest;
+import com.goldmen.home.house.dto.response.GetHousePositionResponse;
 import com.goldmen.home.house.dto.response.GetHouseResponse;
 import com.goldmen.home.mapper.ApiMapper;
 import com.goldmen.home.metro.station.domain.Station;
@@ -37,6 +38,18 @@ public class HouseService {
         } else {
             List<Saleable> monthlyList = getMonthly(buildingList, request);
             return ApiResponse.valueOf(GetHouseResponse.from(monthlyList));
+        }
+    }
+
+    public ApiResponse<GetHousePositionResponse> getHousePosition(GetHouseRequest request) {
+        Station station = stationReadService.findByName(request.getStationName());
+        List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingType());
+        if (request.getRentType().equals("JEONSE")) {
+            List<Saleable> jeonseList = getJeonse(buildingList, request);
+            return ApiResponse.valueOf(GetHousePositionResponse.from(jeonseList));
+        } else {
+            List<Saleable> monthlyList = getMonthly(buildingList, request);
+            return ApiResponse.valueOf(GetHousePositionResponse.from(monthlyList));
         }
     }
 
