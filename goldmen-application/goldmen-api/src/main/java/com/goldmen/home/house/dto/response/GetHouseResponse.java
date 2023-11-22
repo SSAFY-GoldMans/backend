@@ -77,7 +77,7 @@ public class GetHouseResponse {
 
     private static String convertPrice(int price, String type) {
         StringBuilder sb = new StringBuilder(type + " ");
-        if (price >= 1e8) sb.append(Math.round(price / 1e8)).append("억원");
+        if (price >= 1e4) sb.append(Math.round(price / 1e4)).append("억원");
         else sb.append(price).append("만원");
         return sb.toString();
     }
