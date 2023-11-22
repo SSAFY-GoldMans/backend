@@ -28,30 +28,53 @@ public class HouseService {
     private final MonthlyService monthlyService;
     private final ApiMapper apiMapper;
 
-    public ApiResponse<GetHouseResponse> getHouse(GetHouseRequest request){
+    public ApiResponse<GetHouseResponse> getHouse(GetHouseRequest request) {
         Station station = stationReadService.findByName(request.getStationName());
         List<Building> buildingList = buildingService.findALlByStation(station, request.getBuildingType());
-        if(request.getRentType().equals("JEONSE")){
-            List<Saleable> jeonseList = getJeonse(buildingList,request);
+        if (request.getRentType().equals("JEONSE")) {
+            List<Saleable> jeonseList = getJeonse(buildingList, request);
             return ApiResponse.valueOf(GetHouseResponse.from(jeonseList));
-        }else {
-            List<Saleable> monthlyList = getMonthly(buildingList,request);
+        } else {
+            List<Saleable> monthlyList = getMonthly(buildingList, request);
             return ApiResponse.valueOf(GetHouseResponse.from(monthlyList));
         }
     }
-    private List<Saleable> getMonthly(List<Building> buildingList,GetHouseRequest request) {
+
+    private List<Saleable> getMonthly(List<Building> buildingList, GetHouseRequest request) {
         List<Saleable> monthlyList = new ArrayList<>();
-        for(Building building : buildingList){
-            monthlyList.addAll(monthlyService.findAllByBuilding(building,apiMapper.toFindAllCondition(request)));
+        for (Building building : buildingList) {
+            monthlyList.addAll(monthlyService.findAllByBuilding(building, apiMapper.toFindAllCondition(request)));
         }
         return monthlyList;
     }
 
-    private List<Saleable> getJeonse(List<Building> buildingList,GetHouseRequest request){
+    private List<Saleable> getJeonse(List<Building> buildingList, GetHouseRequest request) {
         List<Saleable> jeonseList = new ArrayList<>();
-        for(Building building : buildingList){
-            jeonseList.addAll(jeonseService.findAllByBuilding(building,apiMapper.toFindAllCondition(request)));
+        for (Building building : buildingList) {
+            jeonseList.addAll(jeonseService.findAllByBuilding(building, apiMapper.toFindAllCondition(request)));
         }
         return jeonseList;
+    }
+
+    private List<Building> getBuildingList(Station station) {
+        return buildingService.findALlByStation(station);
+    }
+
+    public int getBuildingMiddlePrice(Station station, String buildingType, String priceType) {
+        List<Building> buildingList = getBuildingList(station).stream()
+                .filter(building -> building.getType().equals(buildingType)).toList();
+        if (buildingList.isEmpty()) {
+            return 0;
+        } else if (priceType.equals("JEONSE")) {
+            List<Jeonse> jeonsesList = buildingList.stream()
+                    .map(jeonseService::findAllByBuildingId)
+                    .flatMap(List::stream).toList();
+            return jeonsesList.get(jeonsesList.size() / 2).getPrice();
+        } else {
+            List<Monthly> monthlyList = buildingList.stream()
+                    .map(monthlyService::findAllByBuildingId)
+                    .flatMap(List::stream).toList();
+            return monthlyList.get(monthlyList.size() / 2).getRent();
+        }
     }
 }
