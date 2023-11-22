@@ -2,6 +2,7 @@ package com.goldmen.home.building.Monthly.domain;
 
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
+import com.goldmen.home.building.global.domain.Saleable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 @Getter
 @Entity
-public class Monthly {
+public class Monthly implements Saleable {
     @Id
     @Column(name = "monthly_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
