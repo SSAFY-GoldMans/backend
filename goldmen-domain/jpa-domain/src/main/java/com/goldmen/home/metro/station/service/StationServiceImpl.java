@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class StationServiceImpl implements StationModifyService {
+public class StationServiceImpl implements StationModifyService, StationReadService{
     private final StationRepository stationRepository;
 
     @Override
@@ -18,5 +18,10 @@ public class StationServiceImpl implements StationModifyService {
             throw new RuntimeException("지하철 데이터 중복");
         }
         return stationRepository.save(station);
+    }
+
+    @Override
+    public Station findByName(String name) {
+        return stationRepository.findByName(name).orElseThrow();
     }
 }
