@@ -21,17 +21,19 @@ public record SaleableDetailResponse(
                 saleable.getBuilding().getName(),
                 convertPrice(saleable.getPrice()),
                 convertArea(saleable.getArea()),
-                (int) (saleable.getFloor() / 3.3),
+                saleable.getFloor(),
                 convertAddress(saleable)
         );
     }
 
     private static String convertAddress(Saleable saleable) {
-        if (saleable instanceof Jeonse) {
-            return convertAddress((Jeonse) saleable);
-        } else {
-            return convertAddress((Monthly) saleable);
+        if (saleable instanceof Jeonse jeonse) {
+            return convertAddress(jeonse);
         }
+        if (saleable instanceof Monthly monthly) {
+            return convertAddress(monthly);
+        }
+        throw new RuntimeException();
     }
 
     private static String convertAddress(Jeonse jeonse) {
