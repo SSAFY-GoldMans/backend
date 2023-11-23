@@ -33,4 +33,8 @@ public class Member {
 
     @OneToOne(mappedBy = "member")
     private AgentUser agentUser;
+
+    public void updatePassword(Password newPassword) {
+        password = newPassword;
+    }
 }
