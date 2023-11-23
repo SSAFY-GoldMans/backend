@@ -11,4 +11,7 @@ dependencies {
     implementation project(':goldmen-common')
 
     implementation('org.springframework.boot:spring-boot-starter-web')
+    /* Caffeine */
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
 }
