@@ -38,14 +38,8 @@ public class MemberServiceImpl
     }
 
     @Override
-    public boolean update(int id, String currentPassword, String newPasswordStr) {
-        Member member = memberRepository.findById(id).orElseThrow();
-        if (member.getPassword().equals(currentPassword)) {
-            member.updatePassword(Password.from(newPasswordStr));
-            return true;
-        } else {
-            return false;
-        }
+    public void update(Member member, String newPassword) {
+        member.updatePassword(Password.from(newPassword));
     }
 
     @Override
@@ -56,5 +50,11 @@ public class MemberServiceImpl
         }
         memberRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Member findById(int id) {
+        return memberRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
     }
 }
