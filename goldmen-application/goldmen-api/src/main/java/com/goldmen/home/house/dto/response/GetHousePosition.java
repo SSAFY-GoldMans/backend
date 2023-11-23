@@ -6,7 +6,7 @@ import com.goldmen.home.building.global.domain.Saleable;
 public record GetHousePosition(
         @JsonProperty("id") int buildingId,
         @JsonProperty("name") String name,
-        @JsonProperty("lnt") double lat,
+        @JsonProperty("lat") double lat,
         @JsonProperty("lng") double lng
 ) {
     static public GetHousePosition saleableToGetHouseResponse(Saleable saleable) {
