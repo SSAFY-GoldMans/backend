@@ -1,6 +1,9 @@
 package com.goldmen.home.metro.service;
 
+import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.building.domain.BuildingEnum;
+import com.goldmen.home.building.global.domain.PriceEnum;
+import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.house.service.HouseService;
 import com.goldmen.home.metro.dto.NearMetroRequest;
 import com.goldmen.home.metro.dto.NearMetroResponse;
@@ -29,8 +32,10 @@ public class NearService {
         List<NearMetroResponse> responseList = durationList.stream().map(duration -> {
             Station station = getDiffStation(duration, standId);
             String buildingTypeKorean = BuildingEnum.valueOf(request.buildingType()).strKorean;
-            int middlePrice = houseService.getBuildingMiddlePrice(station, buildingTypeKorean, request.priceType());
-            return stationToNearMetroResponse(station, middlePrice, duration.getTime());
+            List<Building> buildingList = houseService.getBuildingList(station, buildingTypeKorean);
+            List<? extends Saleable> saleableList = houseService.getSaleableList(buildingList, PriceEnum.valueOf(request.priceType()));
+            int middlePrice = houseService.getMiddlePrice(saleableList);
+            return stationToNearMetroResponse(station, middlePrice, duration.getTime(), saleableList.size());
         }).toList();
         return ApiResponse.valueOf(responseList);
     }

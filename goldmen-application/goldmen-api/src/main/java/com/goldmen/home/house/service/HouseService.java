@@ -74,31 +74,32 @@ public class HouseService {
         return jeonseList;
     }
 
-    private List<Building> getBuildingList(Station station) {
-        return buildingService.findALlByStation(station);
+    public List<Building> getBuildingList(Station station, String buildingType) {
+        return buildingService.findALlByStation(station).stream()
+                .filter(building -> building.getType().equals(buildingType)).toList();
     }
 
-    public int getBuildingMiddlePrice(Station station, String buildingType, String priceType) {
-        List<Building> buildingList = getBuildingList(station).stream()
-                .filter(building -> building.getType().equals(buildingType)).toList();
-        if (buildingList.isEmpty()) {
+    public List<? extends Saleable> getSaleableList(List<Building> buildingList, PriceEnum priceEnum) {
+        switch (priceEnum) {
+            case JEONSE -> {
+                return buildingList.stream().map(jeonseService::findAllByBuildingId)
+                        .flatMap(List::stream).toList();
+            }
+            case MONTHLY -> {
+                return buildingList.stream().map(monthlyService::findAllByBuildingId)
+                        .flatMap(List::stream).toList();
+            }
+        }
+        return List.of();
+    }
+
+    public int getMiddlePrice(List<? extends Saleable> saleableList) {
+        if (saleableList.isEmpty()) {
             return 0;
-        } else if (priceType.equals("JEONSE")) {
-            List<Jeonse> jeonsesList = buildingList.stream()
-                    .map(jeonseService::findAllByBuildingId)
-                    .flatMap(List::stream).toList();
-            if (jeonsesList.isEmpty()) {
-                return 0;
-            }
-            return jeonsesList.get(jeonsesList.size() / 2).getPrice();
+        } else if (saleableList.get(0) instanceof Monthly) {
+            return saleableList.get(saleableList.size() / 2).getPrice();
         } else {
-            List<Monthly> monthlyList = buildingList.stream()
-                    .map(monthlyService::findAllByBuildingId)
-                    .flatMap(List::stream).toList();
-            if (monthlyList.isEmpty()) {
-                return 0;
-            }
-            return monthlyList.get(monthlyList.size() / 2).getRent();
+            return ((Monthly) saleableList.get(saleableList.size() / 2)).getRent();
         }
     }
 
