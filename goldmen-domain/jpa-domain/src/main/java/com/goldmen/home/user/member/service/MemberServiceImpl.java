@@ -40,7 +40,7 @@ public class MemberServiceImpl
     @Override
     public boolean update(int id, String currentPassword, String newPasswordStr) {
         Member member = memberRepository.findById(id).orElseThrow();
-        if (member.getPassword().getValue().equals(currentPassword)) {
+        if (member.getPassword().equals(currentPassword)) {
             member.updatePassword(Password.from(newPasswordStr));
             return true;
         } else {
@@ -51,7 +51,7 @@ public class MemberServiceImpl
     @Override
     public boolean delete(int id, String password) {
         Optional<Member> member = memberRepository.findById(id);
-        if (member.isEmpty() || !member.get().getPassword().getValue().equals(password)) {
+        if (member.isEmpty() || !member.get().getPassword().equals(password)) {
             return false;
         }
         memberRepository.deleteById(id);
