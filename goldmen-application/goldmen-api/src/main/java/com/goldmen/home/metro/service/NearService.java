@@ -1,8 +1,5 @@
 package com.goldmen.home.metro.service;
 
-import com.goldmen.home.building.building.domain.Building;
-import com.goldmen.home.building.building.domain.BuildingEnum;
-import com.goldmen.home.building.global.domain.PriceEnum;
 import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.house.service.HouseService;
 import com.goldmen.home.metro.dto.NearMetroRequest;
@@ -15,9 +12,9 @@ import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.goldmen.home.global.Mapper.stationToNearMetroResponse;
 
@@ -31,14 +28,19 @@ public class NearService {
     public ApiResponse<List<NearMetroResponse>> getNearMetroList(NearMetroRequest request) {
         int standId = stationService.findFirstStationByName(request.name().substring(0, request.name().length() - 1)).getId();
         List<Duration> durationList = durationService.getNearDurationByTime(standId, request.time());
-        List<NearMetroResponse> responseList = getDistinctDurationList(durationList, standId)
-                .stream().map(duration -> {
-                    Station station = getDiffStation(duration, standId);
-                    List<? extends Saleable> saleableList = houseService.getSaleableList(station, request.buildingEnum(), request.priceEnum());
-                    int middlePrice = houseService.getMiddlePrice(saleableList);
-                    return stationToNearMetroResponse(station, middlePrice, duration.getTime(), saleableList.size());
-                }).toList();
-        return ApiResponse.valueOf(responseList);
+        LinkedHashMap<String, NearMetroResponse> map = new LinkedHashMap<>();
+        durationList.forEach(duration -> {
+            Station station = getDiffStation(duration, standId);
+            List<? extends Saleable> saleableList = houseService.getSaleableList(station, request.buildingEnum(), request.priceEnum());
+            NearMetroResponse response = stationToNearMetroResponse(station, houseService.getMiddlePrice(saleableList), duration.getTime(), saleableList.size(), new ArrayList<>(List.of(station.getLine().getId())));
+            NearMetroResponse value = map.get(response.stationName());
+            if (value != null) {
+                value.lines().addAll(response.lines());
+            } else {
+                map.put(response.stationName(), response);
+            }
+        });
+        return ApiResponse.valueOf(map.values().stream().toList());
     }
 
     private List<Duration> getDistinctDurationList(List<Duration> durationList, int standId) {

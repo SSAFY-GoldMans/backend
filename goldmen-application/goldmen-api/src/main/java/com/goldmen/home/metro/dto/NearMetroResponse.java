@@ -3,6 +3,8 @@ package com.goldmen.home.metro.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public record NearMetroResponse(
         @JsonProperty("name") String stationName,
         @JsonProperty("time") String time,
@@ -10,6 +12,7 @@ public record NearMetroResponse(
         @JsonProperty("price") String middlePrice,
         @JsonProperty("lat") double lat,
         @JsonProperty("lng") double lng,
-        @JsonProperty("count") int count
+        @JsonProperty("count") int count,
+        @JsonProperty("lines") List<Integer> lines
 ) {
 }
