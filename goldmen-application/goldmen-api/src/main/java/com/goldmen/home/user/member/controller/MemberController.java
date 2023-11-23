@@ -3,6 +3,7 @@ package com.goldmen.home.user.member.controller;
 import com.goldmen.home.type.ApiResponse;
 import com.goldmen.home.user.member.dto.request.MemberLoginRequest;
 import com.goldmen.home.user.member.dto.request.MemberSignupRequest;
+import com.goldmen.home.user.member.dto.request.MemberUpdateRequest;
 import com.goldmen.home.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,15 @@ public class MemberController {
     public ResponseEntity<ApiResponse<Integer>> login(@RequestBody MemberLoginRequest request) {
         ApiResponse<Integer> response = memberService.login(request);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<ApiResponse<Boolean>> update(@RequestBody MemberUpdateRequest request) {
+        ApiResponse<Boolean> response = memberService.update(request);
+        if (response.getBody()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.goldmen.home.user.member.service;
 import com.goldmen.home.user.member.domain.Member;
 import com.goldmen.home.user.member.domain.MemberRepository;
 import com.goldmen.home.user.member.domain.embedded.Email;
+import com.goldmen.home.user.member.domain.embedded.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,17 @@ public class MemberServiceImpl
     @Override
     public Member findByEmail(Email email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow();
+    }
+
+    @Override
+    public boolean update(int id, String currentPassword, String newPasswordStr) {
+        Member member = memberRepository.findById(id).orElseThrow();
+        if (member.getPassword().getValue().equals(currentPassword)) {
+            member.updatePassword(Password.from(newPasswordStr));
+            return true;
+        } else {
+            return false;
+        }
     }
 }
