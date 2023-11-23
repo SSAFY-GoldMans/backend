@@ -3,6 +3,7 @@ package com.goldmen.home.user.member.service;
 import com.goldmen.home.type.ApiResponse;
 import com.goldmen.home.user.member.domain.Member;
 import com.goldmen.home.user.member.domain.embedded.Email;
+import com.goldmen.home.user.member.dto.request.MemberDeleteRequest;
 import com.goldmen.home.user.member.dto.request.MemberLoginRequest;
 import com.goldmen.home.user.member.dto.request.MemberSignupRequest;
 import com.goldmen.home.user.member.dto.request.MemberUpdateRequest;
@@ -39,6 +40,11 @@ public class MemberService {
     public ApiResponse<Boolean> update(MemberUpdateRequest request) {
         if (!request.newPassword().equals(request.validateNewPassword())) return ApiResponse.valueOf(false);
         boolean isSuccess = memberModifyService.update(request.id(), request.currentPassword(), request.newPassword());
+        return ApiResponse.valueOf(isSuccess);
+    }
+
+    public ApiResponse<Boolean> delete(MemberDeleteRequest request) {
+        boolean isSuccess = memberModifyService.delete(request.id(), request.password());
         return ApiResponse.valueOf(isSuccess);
     }
 }
