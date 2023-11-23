@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -44,5 +46,15 @@ public class MemberServiceImpl
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean delete(int id, String password) {
+        Optional<Member> member = memberRepository.findById(id);
+        if (member.isEmpty() || member.get().getPassword().getValue().equals(password)) {
+            return false;
+        }
+        memberRepository.deleteById(id);
+        return true;
     }
 }
