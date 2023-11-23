@@ -12,8 +12,8 @@ public class Area{
 
     private Integer min;
     public Area(@JsonProperty("max") Integer max, @JsonProperty("min") Integer min){
-        this.max = max;
-        this.min = min;
+        this.max = (int)(max*3.3);
+        this.min = (int)(min*3.3);
     }
 
     public Area() {
