@@ -7,7 +7,10 @@ import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,7 +22,6 @@ public class NearController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<List<NearMetroResponse>>> nearStation(@RequestBody NearMetroRequest request) {
-        System.out.println(request);
         ApiResponse<List<NearMetroResponse>> response = nearService.getNearMetroList(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
