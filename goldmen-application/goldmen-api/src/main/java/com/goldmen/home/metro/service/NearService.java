@@ -31,9 +31,9 @@ public class NearService {
         List<Duration> durationList = durationService.getNearDurationByTime(standId, request.time());
         List<NearMetroResponse> responseList = durationList.stream().map(duration -> {
             Station station = getDiffStation(duration, standId);
-            String buildingTypeKorean = BuildingEnum.valueOf(request.buildingType()).strKorean;
+            String buildingTypeKorean = request.buildingEnum().strKorean;
             List<Building> buildingList = houseService.getBuildingList(station, buildingTypeKorean);
-            List<? extends Saleable> saleableList = houseService.getSaleableList(buildingList, PriceEnum.valueOf(request.priceType()));
+            List<? extends Saleable> saleableList = houseService.getSaleableList(buildingList, request.priceEnum());
             int middlePrice = houseService.getMiddlePrice(saleableList);
             return stationToNearMetroResponse(station, middlePrice, duration.getTime(), saleableList.size());
         }).toList();
