@@ -1,6 +1,6 @@
 package com.goldmen.home.auth.data.dto.request;
 
-import com.multi.mariage.auth.dto.response.TokenResponse;
+import com.goldmen.home.auth.data.dto.response.TokenResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
