@@ -9,6 +9,7 @@ public record NearMetroResponse(
         @JsonProperty("address") String address,
         @JsonProperty("price") String middlePrice,
         @JsonProperty("lat") double lat,
-        @JsonProperty("lng") double lng
+        @JsonProperty("lng") double lng,
+        @JsonProperty("count") int count
 ) {
 }
