@@ -102,7 +102,7 @@ public class HouseService {
     public int getMiddlePrice(List<? extends Saleable> saleableList) {
         if (saleableList.isEmpty()) {
             return 0;
-        } else if (saleableList.get(0) instanceof Monthly) {
+        } else if (saleableList.get(0) instanceof Jeonse) {
             return saleableList.get(saleableList.size() / 2).getPrice();
         } else {
             return ((Monthly) saleableList.get(saleableList.size() / 2)).getRent();
