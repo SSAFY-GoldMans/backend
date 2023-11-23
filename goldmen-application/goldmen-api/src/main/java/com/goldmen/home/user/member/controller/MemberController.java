@@ -1,6 +1,7 @@
 package com.goldmen.home.user.member.controller;
 
 import com.goldmen.home.type.ApiResponse;
+import com.goldmen.home.user.member.dto.request.MemberDeleteRequest;
 import com.goldmen.home.user.member.dto.request.MemberLoginRequest;
 import com.goldmen.home.user.member.dto.request.MemberSignupRequest;
 import com.goldmen.home.user.member.dto.request.MemberUpdateRequest;
@@ -34,6 +35,16 @@ public class MemberController {
     @PostMapping("/update")
     public ResponseEntity<ApiResponse<Boolean>> update(@RequestBody MemberUpdateRequest request) {
         ApiResponse<Boolean> response = memberService.update(request);
+        if (response.getBody()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<ApiResponse<Boolean>> delete(@RequestBody MemberDeleteRequest request) {
+        ApiResponse<Boolean> response = memberService.delete(request);
         if (response.getBody()) {
             return ResponseEntity.ok(response);
         } else {
