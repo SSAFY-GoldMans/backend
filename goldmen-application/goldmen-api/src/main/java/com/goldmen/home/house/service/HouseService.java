@@ -3,6 +3,7 @@ package com.goldmen.home.house.service;
 import com.goldmen.home.building.Monthly.domain.Monthly;
 import com.goldmen.home.building.Monthly.service.MonthlyService;
 import com.goldmen.home.building.building.domain.Building;
+import com.goldmen.home.building.building.domain.BuildingEnum;
 import com.goldmen.home.building.building.service.BuildingService;
 import com.goldmen.home.building.global.domain.PriceEnum;
 import com.goldmen.home.building.global.domain.Saleable;
@@ -91,6 +92,11 @@ public class HouseService {
             }
         }
         return List.of();
+    }
+
+    public List<? extends Saleable> getSaleableList(Station station, BuildingEnum buildingEnum, PriceEnum priceEnum) {
+        List<Building> buildingList = getBuildingList(station, buildingEnum.strKorean);
+        return getSaleableList(buildingList, priceEnum);
     }
 
     public int getMiddlePrice(List<? extends Saleable> saleableList) {
