@@ -11,7 +11,7 @@ class GetHouse {
     private int id;
 
     @JsonProperty
-    private String houseName;
+    private GetHousePosition position;
 
     @JsonProperty
     private String price;
