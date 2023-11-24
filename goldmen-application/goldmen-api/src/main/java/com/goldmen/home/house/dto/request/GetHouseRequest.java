@@ -26,11 +26,21 @@ public class GetHouseRequest {
         this.buildingEnum = buildingEnum;
         this.rentType = rentType;
         this.stationName = stationName;
-        if (price == null) this.price = new Price();
-        else this.price = price;
+        if (price == null) price = new Price();
+        if(price.getMax() >= 30) {
+            price.setMax(10000);
+        }
+        if (rentType.equals("MONTHLY")) {
+            this.price = new Price(price.getMax() * 100, price.getMin() * 100);
+        } else {
+            this.price = new Price(price.getMax() * 1000, price.getMin() * 1000);
+        }
         if (area == null) this.area = new Area();
         else this.area = area;
-        if (rent == null) this.rent = new Rent();
-        else this.rent = rent;
+        if (rent == null) rent = new Rent();
+        if(rent.getMax() >= 10) {
+            rent.setMax(10000);
+        }
+        this.rent = new Rent(rent.getMax() * 10, rent.getMin() * 10);
     }
 }

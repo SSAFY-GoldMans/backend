@@ -19,7 +19,7 @@ public interface MonthlyRepository extends JpaRepository<Monthly, Integer> {
             "where m.building = :#{#building} " +
             "and :#{#cond.price.min} <= m.price and m.price<= :#{#cond.price.max} " +
             "and :#{#cond.area.min} <= m.houseInfo.area and m.houseInfo.area <= :#{#cond.area.max} " +
-            "and :#{#cond.price.min} <= m.price and m.price <= :#{#cond.price.max} order by m.price")
+            "and :#{#cond.rent.min} <= m.rent and m.rent <= :#{#cond.rent.max} order by m.rent")
     List<Monthly> findAllByBuildingAndCond(@Param("building") Building building, @Param("cond") FindAllCondition cond);
 
     @Query(value = "select m from Monthly m " +
