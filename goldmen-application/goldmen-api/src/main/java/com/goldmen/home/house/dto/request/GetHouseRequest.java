@@ -22,12 +22,12 @@ public class GetHouseRequest {
 
     @JsonCreator
     public GetHouseRequest(@JsonProperty("buildingType") BuildingEnum buildingEnum, @JsonProperty("rentType") String rentType, @JsonProperty("stationName") String stationName,
-                           @JsonProperty(value = "price") Price price, @JsonProperty("area") Area area, @JsonProperty("rent") Rent rent) {
+                           @JsonProperty(value = "fee") Price price, @JsonProperty("area") Area area, @JsonProperty("rent") Rent rent) {
         this.buildingEnum = buildingEnum;
         this.rentType = rentType;
         this.stationName = stationName;
-        if (price == null) price = new Price();
-        if(price.getMax() >= 30) {
+        if (price == null) price = new Price(30, 0);
+        if (price.getMax() >= 30) {
             price.setMax(10000);
         }
         if (rentType.equals("MONTHLY")) {
@@ -37,8 +37,8 @@ public class GetHouseRequest {
         }
         if (area == null) this.area = new Area();
         else this.area = area;
-        if (rent == null) rent = new Rent();
-        if(rent.getMax() >= 10) {
+        if (rent == null) rent = new Rent(10, 0);
+        if (rent.getMax() >= 10) {
             rent.setMax(10000);
         }
         this.rent = new Rent(rent.getMax() * 10, rent.getMin() * 10);
