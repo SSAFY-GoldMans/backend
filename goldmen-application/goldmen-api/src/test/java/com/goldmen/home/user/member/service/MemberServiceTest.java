@@ -1,5 +1,6 @@
 package com.goldmen.home.user.member.service;
 
+import com.goldmen.home.auth.data.dto.response.TokenResponse;
 import com.goldmen.home.type.ApiResponse;
 import com.goldmen.home.user.member.dto.request.MemberSignupRequest;
 import com.goldmen.home.user.member.fixture.MemberFixture;
@@ -38,7 +39,7 @@ class MemberServiceTest {
         memberService.signup(MemberFixture.정욱.회원가입_요청을_생성한다());
 
         /* When */
-        ApiResponse<Integer> response = memberService.login(MemberFixture.정욱.로그인_요청을_생성한다());
+        ApiResponse<TokenResponse> response = memberService.login(MemberFixture.정욱.로그인_요청을_생성한다());
 
         /* Then */
         assertThat(response.getMessages().get(0)).isEqualTo(MemberMessage.SUCCESS_LOGIN.getMessage());

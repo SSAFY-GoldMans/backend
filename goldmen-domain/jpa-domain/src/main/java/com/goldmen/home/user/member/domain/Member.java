@@ -34,6 +34,10 @@ public class Member {
     @OneToOne(mappedBy = "member")
     private AgentUser agentUser;
 
+    public String getPassword() {
+        return password.getValue();
+    }
+
     public void updatePassword(Password newPassword) {
         password = newPassword;
     }

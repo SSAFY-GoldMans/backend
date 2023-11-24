@@ -10,6 +10,7 @@ import com.goldmen.home.metro.station.domain.Station;
 import com.goldmen.home.metro.station.service.StationServiceImpl;
 import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class NearService {
     private final HouseService houseService;
     private final StationServiceImpl stationService;
 
+    @Cacheable(cacheNames = "station_info")
     public ApiResponse<List<NearMetroResponse>> getNearMetroList(NearMetroRequest request) {
         int standId = stationService.findFirstStationByName(request.name().substring(0, request.name().length() - 1)).getId();
         List<Duration> durationList = durationService.getNearDurationByTime(standId, request.time());

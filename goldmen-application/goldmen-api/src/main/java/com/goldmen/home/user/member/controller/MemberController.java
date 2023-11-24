@@ -1,5 +1,8 @@
 package com.goldmen.home.user.member.controller;
 
+import com.goldmen.home.auth.annotation.Authenticated;
+import com.goldmen.home.auth.data.AuthMember;
+import com.goldmen.home.auth.data.dto.response.TokenResponse;
 import com.goldmen.home.type.ApiResponse;
 import com.goldmen.home.user.member.dto.request.MemberDeleteRequest;
 import com.goldmen.home.user.member.dto.request.MemberLoginRequest;
@@ -27,19 +30,17 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<Integer>> login(@RequestBody MemberLoginRequest request) {
-        ApiResponse<Integer> response = memberService.login(request);
+    public ResponseEntity<ApiResponse<TokenResponse>> login(@RequestBody MemberLoginRequest request) {
+        ApiResponse<TokenResponse> response = memberService.login(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse<Boolean>> update(@RequestBody MemberUpdateRequest request) {
-        ApiResponse<Boolean> response = memberService.update(request);
-        if (response.getBody()) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.badRequest().body(response);
-        }
+    public ResponseEntity<ApiResponse<String>> update(
+            @Authenticated AuthMember authMember,
+            @RequestBody MemberUpdateRequest request) {
+        ApiResponse<String> response = memberService.update(authMember.getId(), request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/delete")

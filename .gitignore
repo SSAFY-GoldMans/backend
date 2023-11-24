@@ -38,3 +38,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### QFile ###
+!**/src/main/generated/
+/goldmen-domain/jpa-domain/src/main/generated/
