@@ -14,6 +14,6 @@ public class DurationServiceImpl implements DurationLoadService {
 
     @Override
     public List<Duration> findNearStationByStationIdAndTime(int stationId, int time) {
-        return durationRepository.findNearStationByStationIdAndTime(stationId, time);
+        return durationRepository.findByStationByStationIdAndTime(stationId, time);
     }
 }

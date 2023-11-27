@@ -1,16 +1,14 @@
 package com.goldmen.home.metro.duration.domain;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("mysql")
@@ -23,11 +21,14 @@ class DurationRepositoryTest {
     void findNearStationByStationIdAndTime() {
         int maxTime = 10;
         int targetStationId = 2583;
-        List<Duration> durationList = durationRepository.findNearStationByStationIdAndTime(targetStationId, maxTime);
+        List<Duration> durationList = durationRepository.findByStationByStationIdAndTime(targetStationId, maxTime);
 
         for (Duration duration : durationList) {
-            assertTrue(duration.getTime() <= maxTime);
-            assertTrue(duration.getStartStation().getId() == targetStationId || duration.getEndStation().getId() == targetStationId);
+            assertThat(duration.getTime()).isLessThanOrEqualTo(maxTime);
+            assertThat(duration.getStartStation().getId() == targetStationId ||
+                    duration.getEndStation().getId() == targetStationId).isTrue();
+//            assertTrue(duration.getTime() <= maxTime);
+//            assertTrue(duration.getStartStation().getId() == targetStationId || duration.getEndStation().getId() == targetStationId);
         }
     }
 }

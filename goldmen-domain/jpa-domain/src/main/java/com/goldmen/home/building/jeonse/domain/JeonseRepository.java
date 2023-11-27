@@ -3,6 +3,7 @@ package com.goldmen.home.building.jeonse.domain;
 import com.goldmen.home.building.Monthly.cond.FindAllCondition;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
+import com.goldmen.home.building.jeonse.domain.query.JeonseRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface JeonseRepository extends JpaRepository<Jeonse, Integer> {
+public interface JeonseRepository extends JpaRepository<Jeonse, Integer>, JeonseRepositoryCustom {
     Optional<Jeonse> findByHouseInfo(HouseInfo houseInfo);
 
     List<Jeonse> findAllByBuilding(Building building);
