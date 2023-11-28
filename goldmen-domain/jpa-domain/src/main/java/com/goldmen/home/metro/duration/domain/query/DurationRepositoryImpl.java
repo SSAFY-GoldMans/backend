@@ -26,7 +26,7 @@ public class DurationRepositoryImpl implements DurationRepositoryCustom {
                 .join(duration.startStation, station).fetchJoin()
                 .join(station.legal, legal).fetchJoin()
                 .join(legal.district, district).fetchJoin()
-                .where(duration.time.eq(time))
+                .where(duration.time.loe(time))
                 .where((duration.endStation.id.eq(stationId)
                         .or(duration.startStation.id.eq(stationId))))
                 .orderBy(duration.time.asc())
