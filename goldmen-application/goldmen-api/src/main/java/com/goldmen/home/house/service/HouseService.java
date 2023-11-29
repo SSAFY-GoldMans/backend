@@ -70,7 +70,7 @@ public class HouseService {
     private List<Saleable> getJeonse(List<Building> buildingList, GetHouseRequest request) {
         List<Saleable> jeonseList = new ArrayList<>();
         for (Building building : buildingList) {
-            jeonseList.addAll(jeonseService.findAllByBuilding(building, apiMapper.toFindAllCondition(request)));
+            jeonseList.addAll(jeonseService.findAllByBuilding(building.getId(), apiMapper.toFindAllCondition(request)));
         }
         return jeonseList;
     }

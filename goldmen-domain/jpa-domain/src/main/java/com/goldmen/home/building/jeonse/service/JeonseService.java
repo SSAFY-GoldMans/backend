@@ -26,8 +26,8 @@ public class JeonseService {
         return jeonseRepository.findByIdJoinMap(jeonse.getId()).orElseThrow();
     }
 
-    public List<Jeonse> findAllByBuilding(Building building, FindAllCondition condition) {
-        return jeonseRepository.findAllByBuildingAndCond(building, condition);
+    public List<Jeonse> findAllByBuilding(int buildingId, FindAllCondition condition) {
+        return jeonseRepository.findAllByBuildingIdAndCond(buildingId, condition);
     }
 
     public List<Jeonse> findAllByBuildingId(Building building) {
