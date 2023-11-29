@@ -24,11 +24,4 @@ public interface JeonseRepository extends JpaRepository<Jeonse, Integer>, Jeonse
             "and j.houseInfo.area <= :#{#cond.area.max} " +
             "order by j.price")
     List<Jeonse> findAllByBuildingAndCond(@Param("building") Building building, @Param("cond") FindAllCondition cond);
-
-    @Query(value = "select j from Jeonse j " +
-            "join fetch j.building " +
-            "join fetch j.building.legal " +
-            "join fetch j.building.legal.district " +
-            "where j.id = :id")
-    Optional<Jeonse> findById(@Param("id") int id);
 }

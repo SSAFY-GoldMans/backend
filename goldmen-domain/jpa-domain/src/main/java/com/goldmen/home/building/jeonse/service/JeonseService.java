@@ -1,7 +1,6 @@
 package com.goldmen.home.building.jeonse.service;
 
 import com.goldmen.home.building.Monthly.cond.FindAllCondition;
-
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.domain.JeonseRepository;
@@ -24,7 +23,7 @@ public class JeonseService {
     }
 
     public Jeonse findById(Jeonse jeonse) {
-        return jeonseRepository.findById(jeonse.getId()).orElseThrow();
+        return jeonseRepository.findByIdJoinMap(jeonse.getId()).orElseThrow();
     }
 
     public List<Jeonse> findAllByBuilding(Building building, FindAllCondition condition) {
