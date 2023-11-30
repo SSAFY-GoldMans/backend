@@ -1,8 +1,6 @@
-package com.goldmen.home.building.Monthly.cond;
+package com.goldmen.home.building.monthly.cond;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

@@ -2,12 +2,12 @@ package com.goldmen.home.building.building.domain;
 
 import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Building {
@@ -40,4 +40,23 @@ public class Building {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "legal_id")
     private Legal legal;
+
+    @Builder
+    public Building(String name,
+                    String type,
+                    String mainNumber,
+                    String subNumber,
+                    int constructionYear,
+                    double lat,
+                    double lng,
+                    Legal legal) {
+        this.name = name;
+        this.type = type;
+        this.mainNumber = mainNumber;
+        this.subNumber = subNumber;
+        this.constructionYear = constructionYear;
+        this.lat = lat;
+        this.lng = lng;
+        this.legal = legal;
+    }
 }

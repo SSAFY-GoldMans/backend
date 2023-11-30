@@ -1,4 +1,4 @@
-package com.goldmen.home.building.Monthly.cond;
+package com.goldmen.home.building.monthly.cond;
 
 import lombok.Builder;
 import lombok.Getter;

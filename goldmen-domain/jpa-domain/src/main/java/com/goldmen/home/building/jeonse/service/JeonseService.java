@@ -1,6 +1,6 @@
 package com.goldmen.home.building.jeonse.service;
 
-import com.goldmen.home.building.Monthly.cond.FindAllCondition;
+import com.goldmen.home.building.monthly.cond.FindAllCondition;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.domain.JeonseRepository;

@@ -1,6 +1,6 @@
 package com.goldmen.home.building.jeonse.domain.query;
 
-import com.goldmen.home.building.Monthly.cond.FindAllCondition;
+import com.goldmen.home.building.monthly.cond.FindAllCondition;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 
 import java.util.List;

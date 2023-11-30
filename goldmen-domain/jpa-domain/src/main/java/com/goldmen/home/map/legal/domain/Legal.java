@@ -2,21 +2,21 @@ package com.goldmen.home.map.legal.domain;
 
 import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
-import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Table(
-    uniqueConstraints={
-        @UniqueConstraint(
-            name="districtIdAndLegalCode",
-            columnNames={"legal_code", "district_id"}
-        )
-    }
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "districtIdAndLegalCode",
+                        columnNames = {"legal_code", "district_id"}
+                )
+        }
 )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Legal {
@@ -36,4 +36,10 @@ public class Legal {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
     private District district;
+
+    @Builder
+    public Legal(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
 }

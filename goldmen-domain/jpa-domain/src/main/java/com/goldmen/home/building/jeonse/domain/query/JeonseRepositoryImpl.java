@@ -1,9 +1,9 @@
 package com.goldmen.home.building.jeonse.domain.query;
 
-import com.goldmen.home.building.Monthly.cond.Area;
-import com.goldmen.home.building.Monthly.cond.FindAllCondition;
-import com.goldmen.home.building.Monthly.cond.Price;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
+import com.goldmen.home.building.monthly.cond.Area;
+import com.goldmen.home.building.monthly.cond.FindAllCondition;
+import com.goldmen.home.building.monthly.cond.Price;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 

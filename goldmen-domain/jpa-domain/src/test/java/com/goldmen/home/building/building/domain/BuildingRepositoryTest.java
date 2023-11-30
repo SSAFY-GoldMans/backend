@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -55,13 +53,13 @@ class BuildingRepositoryTest {
             em.flush();
             em.clear();
             em.close();
-            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.of(building)).isPresent());
+            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.from(building)).isPresent());
         }
 
         @DisplayName("기존 데이터가 없을 때")
         @Test
         void FailWhenNotExist() {
-            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.of(building)).isEmpty());
+            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.from(building)).isEmpty());
         }
 
         @DisplayName("기존 데이터와 다를 때")
@@ -75,7 +73,7 @@ class BuildingRepositoryTest {
             em.close();
 
             /* WHEN, THEN */
-            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.of(anotherBuilding)).isEmpty());
+            assertTrue(buildingRepository.findFirstByOption(FindBuildingOptionCond.from(anotherBuilding)).isEmpty());
         }
     }
 }

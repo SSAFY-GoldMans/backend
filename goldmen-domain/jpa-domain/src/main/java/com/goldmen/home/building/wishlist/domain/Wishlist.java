@@ -1,6 +1,6 @@
 package com.goldmen.home.building.wishlist.domain;
 
-import com.goldmen.home.building.Monthly.domain.Monthly;
+import com.goldmen.home.building.monthly.domain.Monthly;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.trade.Trade;
 import com.goldmen.home.user.member.domain.Member;

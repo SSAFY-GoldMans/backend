@@ -15,7 +15,7 @@ public class FindBuildingOptionCond {
     private String buildingType;
     private String buildingName;
 
-    public static FindBuildingOptionCond of(Building building){
+    public static FindBuildingOptionCond from(Building building){
         return FindBuildingOptionCond.builder()
                 .legal(building.getLegal())
                 .lat(building.getLat())

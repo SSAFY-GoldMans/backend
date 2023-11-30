@@ -1,6 +1,6 @@
 package com.goldmen.home.mapper;
 
-import com.goldmen.home.building.Monthly.domain.Monthly;
+import com.goldmen.home.building.monthly.domain.Monthly;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
 import com.goldmen.home.building.jeonse.domain.Jeonse;

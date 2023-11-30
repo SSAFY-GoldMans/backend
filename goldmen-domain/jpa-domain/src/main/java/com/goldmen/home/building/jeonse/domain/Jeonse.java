@@ -4,13 +4,13 @@ package com.goldmen.home.building.jeonse.domain;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
 import com.goldmen.home.building.global.domain.Saleable;
-import com.goldmen.home.map.district.domain.District;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Jeonse implements Saleable {
@@ -28,12 +28,17 @@ public class Jeonse implements Saleable {
     @JoinColumn(name = "building_id")
     private Building building;
 
-    @Override
+    @Builder
+    public Jeonse(HouseInfo houseInfo, int price, Building building) {
+        this.houseInfo = houseInfo;
+        this.price = price;
+        this.building = building;
+    }
+
     public int getFloor() {
         return houseInfo.getFloor();
     }
 
-    @Override
     public double getArea() {
         return houseInfo.getArea();
     }

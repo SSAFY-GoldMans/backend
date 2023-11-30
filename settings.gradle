@@ -3,9 +3,9 @@ rootProject.name = 'findmyhomewithsubway'
 /* Application Layer */
 include 'goldmen-application'
 include 'goldmen-application:goldmen-api'
-findProject(':goldmen-application:api')?.name = 'api'
+findProject(':goldmen-application:api')?.name = 'goldmen-api'
 include 'goldmen-application:goldmen-batch'
-findProject(':goldmen-application:batch')?.name = 'batch'
+findProject(':goldmen-application:batch')?.name = 'goldmen-batch'
 
 /* Client Layer */
 include 'goldmen-client'

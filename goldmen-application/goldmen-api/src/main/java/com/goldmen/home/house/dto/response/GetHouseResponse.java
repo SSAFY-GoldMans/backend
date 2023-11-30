@@ -1,7 +1,7 @@
 package com.goldmen.home.house.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.goldmen.home.building.Monthly.domain.Monthly;
+import com.goldmen.home.building.monthly.domain.Monthly;
 import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import lombok.Getter;

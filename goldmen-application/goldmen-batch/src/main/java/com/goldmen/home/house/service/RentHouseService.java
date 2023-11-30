@@ -1,6 +1,6 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.building.Monthly.service.MonthlyService;
+import com.goldmen.home.building.monthly.service.MonthlyService;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.building.service.BuildingService;
 import com.goldmen.home.building.jeonse.service.JeonseService;

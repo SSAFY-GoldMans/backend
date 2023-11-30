@@ -1,14 +1,15 @@
-package com.goldmen.home.building.Monthly.domain;
+package com.goldmen.home.building.monthly.domain;
 
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.global.domain.HouseInfo;
 import com.goldmen.home.building.global.domain.Saleable;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Monthly implements Saleable {
@@ -29,6 +30,13 @@ public class Monthly implements Saleable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private Building building;
+
+    @Builder
+    public Monthly(HouseInfo houseInfo, int price, int rent) {
+        this.houseInfo = houseInfo;
+        this.price = price;
+        this.rent = rent;
+    }
 
     @Override
     public double getArea() {

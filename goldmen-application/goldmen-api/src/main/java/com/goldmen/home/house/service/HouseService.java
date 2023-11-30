@@ -1,7 +1,5 @@
 package com.goldmen.home.house.service;
 
-import com.goldmen.home.building.Monthly.domain.Monthly;
-import com.goldmen.home.building.Monthly.service.MonthlyService;
 import com.goldmen.home.building.building.domain.Building;
 import com.goldmen.home.building.building.domain.BuildingEnum;
 import com.goldmen.home.building.building.service.BuildingService;
@@ -9,6 +7,8 @@ import com.goldmen.home.building.global.domain.PriceEnum;
 import com.goldmen.home.building.global.domain.Saleable;
 import com.goldmen.home.building.jeonse.domain.Jeonse;
 import com.goldmen.home.building.jeonse.service.JeonseService;
+import com.goldmen.home.building.monthly.domain.Monthly;
+import com.goldmen.home.building.monthly.service.MonthlyService;
 import com.goldmen.home.house.dto.request.GetHouseRequest;
 import com.goldmen.home.house.dto.request.SaleableDetailRequest;
 import com.goldmen.home.house.dto.response.GetHousePositionResponse;
@@ -21,9 +21,9 @@ import com.goldmen.home.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -60,19 +60,15 @@ public class HouseService {
     }
 
     private List<Saleable> getMonthly(List<Building> buildingList, GetHouseRequest request) {
-        List<Saleable> monthlyList = new ArrayList<>();
-        for (Building building : buildingList) {
-            monthlyList.addAll(monthlyService.findAllByBuilding(building, apiMapper.toFindAllCondition(request)));
-        }
-        return monthlyList;
+        return buildingList.stream().flatMap(building ->
+                monthlyService.findAllByBuildingId(building.getId(), apiMapper.toFindAllCondition(request))
+                        .stream()).collect(Collectors.toList());
     }
 
     private List<Saleable> getJeonse(List<Building> buildingList, GetHouseRequest request) {
-        List<Saleable> jeonseList = new ArrayList<>();
-        for (Building building : buildingList) {
-            jeonseList.addAll(jeonseService.findAllByBuilding(building.getId(), apiMapper.toFindAllCondition(request)));
-        }
-        return jeonseList;
+        return buildingList.stream().flatMap(building ->
+                jeonseService.findAllByBuilding(building.getId(), apiMapper.toFindAllCondition(request))
+                        .stream()).collect(Collectors.toList());
     }
 
     public List<Building> getBuildingList(Station station, String buildingType) {
@@ -81,15 +77,12 @@ public class HouseService {
     }
 
     public List<? extends Saleable> getSaleableList(List<Building> buildingList, PriceEnum priceEnum) {
-        switch (priceEnum) {
-            case JEONSE -> {
-                return buildingList.stream().map(jeonseService::findAllByBuildingId)
-                        .flatMap(List::stream).toList();
-            }
-            case MONTHLY -> {
-                return buildingList.stream().map(monthlyService::findAllByBuildingId)
-                        .flatMap(List::stream).toList();
-            }
+        if (Objects.requireNonNull(priceEnum) == PriceEnum.JEONSE) {
+            return buildingList.stream().map(jeonseService::findAllByBuildingId)
+                    .flatMap(List::stream).toList();
+        } else if (priceEnum == PriceEnum.MONTHLY) {
+            return buildingList.stream().map(monthlyService::findAllByBuildingId)
+                    .flatMap(List::stream).toList();
         }
         return List.of();
     }

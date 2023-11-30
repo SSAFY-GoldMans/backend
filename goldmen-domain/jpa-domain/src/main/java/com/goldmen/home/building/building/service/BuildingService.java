@@ -18,7 +18,7 @@ public class BuildingService {
 
     @Transactional
     public Building save(Building building){
-        return buildingRepository.findFirstByOption(FindBuildingOptionCond.of(building))
+        return buildingRepository.findFirstByOption(FindBuildingOptionCond.from(building))
                 .orElseGet(()->buildingRepository.save(building));
     }
 
