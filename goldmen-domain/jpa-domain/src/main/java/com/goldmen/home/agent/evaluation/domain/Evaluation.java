@@ -2,11 +2,12 @@ package com.goldmen.home.agent.evaluation.domain;
 
 import com.goldmen.home.user.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Evaluation {
@@ -24,4 +25,11 @@ public class Evaluation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public Evaluation(String content, int rate, Member member) {
+        this.content = content;
+        this.rate = rate;
+        this.member = member;
+    }
 }
