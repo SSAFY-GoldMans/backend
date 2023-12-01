@@ -2,11 +2,12 @@ package com.goldmen.home.agent.office;
 
 import com.goldmen.home.map.legal.domain.Legal;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Office {
@@ -33,4 +34,19 @@ public class Office {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "legal_id")
     private Legal legal;
+
+    @Builder
+    public Office(String address,
+                  String code,
+                  String businessName,
+                  String name,
+                  String phone,
+                  Legal legal) {
+        this.address = address;
+        this.code = code;
+        this.businessName = businessName;
+        this.name = name;
+        this.phone = phone;
+        this.legal = legal;
+    }
 }
