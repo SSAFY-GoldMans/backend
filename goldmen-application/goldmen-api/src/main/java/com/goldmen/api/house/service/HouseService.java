@@ -6,6 +6,7 @@ import com.goldmen.api.house.dto.response.GetHousePositionResponse;
 import com.goldmen.api.house.dto.response.GetHouseResponse;
 import com.goldmen.api.house.dto.response.SaleableDetailResponse;
 import com.goldmen.api.mapper.ApiMapper;
+import com.goldmen.common.type.ApiResponse;
 import com.goldmen.jpadomain.building.building.domain.Building;
 import com.goldmen.jpadomain.building.building.domain.BuildingEnum;
 import com.goldmen.jpadomain.building.building.service.BuildingService;
@@ -17,7 +18,6 @@ import com.goldmen.jpadomain.building.monthly.domain.Monthly;
 import com.goldmen.jpadomain.building.monthly.service.MonthlyService;
 import com.goldmen.jpadomain.metro.station.domain.Station;
 import com.goldmen.jpadomain.metro.station.service.StationFindService;
-import com.goldmen.common.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -105,9 +105,9 @@ public class HouseService {
     public ApiResponse<SaleableDetailResponse> getSaleable(SaleableDetailRequest request) {
         Saleable saleable = null;
         if (Objects.requireNonNull(request.priceEnum()) == PriceEnum.JEONSE) {
-            saleable = jeonseService.findById(Jeonse.builder().id(request.saleableId()).build());
+            saleable = jeonseService.findById(request.saleableId());
         } else if (request.priceEnum() == PriceEnum.MONTHLY) {
-            saleable = monthlyService.findById(Monthly.builder().id(request.saleableId()).build());
+            saleable = monthlyService.findById(request.saleableId());
         }
         return ApiResponse.valueOf(SaleableDetailResponse.from(saleable));
     }

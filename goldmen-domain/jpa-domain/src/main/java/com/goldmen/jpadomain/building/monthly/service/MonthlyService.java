@@ -22,8 +22,8 @@ public class MonthlyService {
                 .orElseGet(() -> monthlyRepository.save(monthly));
     }
 
-    public Monthly findById(Monthly monthly) {
-        return monthlyRepository.findByIdJoinMap(monthly.getId()).orElseThrow();
+    public Monthly findById(int id) {
+        return monthlyRepository.findByIdJoinMap(id).orElseThrow();
     }
 
     public List<Monthly> findAllByBuildingId(int buildingId, FindAllCondition condition) {

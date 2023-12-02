@@ -1,9 +1,9 @@
 package com.goldmen.jpadomain.building.jeonse.service;
 
-import com.goldmen.jpadomain.building.monthly.cond.FindAllCondition;
 import com.goldmen.jpadomain.building.building.domain.Building;
 import com.goldmen.jpadomain.building.jeonse.domain.Jeonse;
 import com.goldmen.jpadomain.building.jeonse.domain.JeonseRepository;
+import com.goldmen.jpadomain.building.monthly.cond.FindAllCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +22,8 @@ public class JeonseService {
                 .orElseGet(() -> jeonseRepository.save(jeonse));
     }
 
-    public Jeonse findById(Jeonse jeonse) {
-        return jeonseRepository.findByIdJoinMap(jeonse.getId()).orElseThrow();
+    public Jeonse findById(int id) {
+        return jeonseRepository.findByIdJoinMap(id).orElseThrow();
     }
 
     public List<Jeonse> findAllByBuilding(int buildingId, FindAllCondition condition) {
