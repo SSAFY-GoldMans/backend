@@ -3,17 +3,17 @@ rootProject.name = 'findmyhomewithsubway'
 /* Application Layer */
 include 'goldmen-application'
 include 'goldmen-application:goldmen-api'
-findProject(':goldmen-application:api')?.name = 'goldmen-api'
+//findProject(':goldmen-application:api')?.name = 'goldmen-api'
 include 'goldmen-application:goldmen-batch'
-findProject(':goldmen-application:batch')?.name = 'goldmen-batch'
+//findProject(':goldmen-application:batch')?.name = 'goldmen-batch'
 
 /* Client Layer */
 include 'goldmen-client'
 include 'goldmen-client:kakao-client'
-findProject(':goldmen-client:kakao-client')?.name = 'kakao-client'
+//findProject(':goldmen-client:kakao-client')?.name = 'kakao-client'
 include 'goldmen-client'
 include 'goldmen-client:seoul-client'
-findProject(':goldmen-client:seoul-client')?.name = 'seoul-client'
+//findProject(':goldmen-client:seoul-client')?.name = 'seoul-client'
 
 /* Domain Layer */
 include 'goldmen-domain'
