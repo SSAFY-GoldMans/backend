@@ -1,0 +1,41 @@
+package com.goldmen.jpadomain.building.building.service;
+
+import com.goldmen.jpadomain.building.building.data.cond.FindBuildingOptionCond;
+import com.goldmen.jpadomain.building.building.domain.Building;
+import com.goldmen.jpadomain.building.building.domain.BuildingRepository;
+import com.goldmen.jpadomain.metro.station.domain.Station;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+@Service
+public class BuildingService {
+    private final BuildingRepository buildingRepository;
+
+    @Transactional
+    public Building save(Building building){
+        return buildingRepository.findFirstByOption(FindBuildingOptionCond.from(building))
+                .orElseGet(()->buildingRepository.save(building));
+    }
+
+    public Building findById(Building building){
+        return buildingRepository.findById(building.getId()).orElseThrow();
+    }
+
+    /**
+     * 역 주변 건물 목록 조회, 800M 기준(걸어서 10분거리)
+     * @param station {@link Station}
+     * @return {@link Building}
+     */
+    public List<Building> findALlByStation(Station station){
+        return buildingRepository.findAllByLocationAndDist(station.getLat(),station.getLng(),800);
+    }
+
+    public List<Building> findALlByStation(Station station,String buildingType){
+        return buildingRepository.findAllByLocationAndDistAndBuildingType(station.getLat(),station.getLng(),800,buildingType);
+    }
+}

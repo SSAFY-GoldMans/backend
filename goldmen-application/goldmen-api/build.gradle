@@ -7,9 +7,9 @@ tasks.named('jar') {
 }
 
 dependencies {
+    implementation project(':goldmen-common')
     implementation project(':goldmen-domain:jpa-domain')
     implementation project(':goldmen-domain:redis-domain')
-    implementation project(':goldmen-common')
 
     implementation('org.springframework.boot:spring-boot-starter-web')
     /* Caffeine */
