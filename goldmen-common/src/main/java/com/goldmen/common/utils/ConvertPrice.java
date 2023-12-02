@@ -1,8 +1,11 @@
-package com.goldmen.common.mapper;
+package com.goldmen.common.utils;
 
 import java.text.DecimalFormat;
 
-public class PriceMapper {
+public class ConvertPrice {
+    private ConvertPrice() {
+    }
+
     public static String priceToStr(int price, int unit) {
         long unitPrice = (long) price * unit;
         if (unitPrice <= 0) {

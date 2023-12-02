@@ -1,8 +1,11 @@
 package com.goldmen.common.type;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class ApiResponse<T> {
     private final List<String> messages = new ArrayList<>();
     private final T body;
@@ -31,11 +34,4 @@ public class ApiResponse<T> {
         return this;
     }
 
-    public List<String> getMessages() {
-        return messages;
-    }
-
-    public T getBody() {
-        return body;
-    }
 }
