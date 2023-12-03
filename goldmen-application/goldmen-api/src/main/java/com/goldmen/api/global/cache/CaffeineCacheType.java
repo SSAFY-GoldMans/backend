@@ -1,4 +1,4 @@
-package com.goldmen.api.global;
+package com.goldmen.api.global.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

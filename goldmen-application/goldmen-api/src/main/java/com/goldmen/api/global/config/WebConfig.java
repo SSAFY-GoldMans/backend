@@ -1,4 +1,4 @@
-package com.goldmen.api.global;
+package com.goldmen.api.global.config;
 
 import com.goldmen.api.auth.annotation.AuthenticatedArgumentResolver;
 import com.goldmen.api.auth.support.TokenProvider;

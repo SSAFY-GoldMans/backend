@@ -1,4 +1,4 @@
-package com.goldmen.api.global;
+package com.goldmen.api.global.config;
 
 import com.goldmen.api.auth.support.JwtAccessDeniedHandler;
 import com.goldmen.api.auth.support.JwtAuthenticationEntryPoint;

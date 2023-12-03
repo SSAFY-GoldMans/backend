@@ -1,6 +1,7 @@
-package com.goldmen.api.global;
+package com.goldmen.api.global.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.goldmen.api.global.cache.CaffeineCacheType;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;

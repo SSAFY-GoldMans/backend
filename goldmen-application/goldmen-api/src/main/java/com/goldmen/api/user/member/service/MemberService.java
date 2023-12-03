@@ -8,7 +8,7 @@ import com.goldmen.api.user.member.dto.request.MemberLoginRequest;
 import com.goldmen.api.user.member.dto.request.MemberSignupRequest;
 import com.goldmen.api.user.member.dto.request.MemberUpdateRequest;
 import com.goldmen.api.user.member.exception.MemberErrorCode;
-import com.goldmen.api.user.member.exception.MemberException;
+import com.goldmen.api.global.exception.ApiException;
 import com.goldmen.api.user.member.mapper.MemberMapper;
 import com.goldmen.common.type.ApiResponse;
 import com.goldmen.jpadomain.user.member.domain.Member;
@@ -47,7 +47,7 @@ public class MemberService {
     }
 
     /**
-     * @throws MemberException 사용자의 비밀번호가 일치하지 않으면 예외를 던짐
+     * @throws ApiException 사용자의 비밀번호가 일치하지 않으면 예외를 던짐
      */
     public ApiResponse<String> update(int id, MemberUpdateRequest request) {
         validateInputPassword(request);
@@ -62,13 +62,13 @@ public class MemberService {
 
     private void validateInputPassword(MemberUpdateRequest request) {
         if (!request.newPassword().equals(request.validateNewPassword())) {
-            throw new MemberException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
+            throw new ApiException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
         }
     }
 
     private void validatePassword(MemberUpdateRequest request, Member findMember) {
         if (!passwordEncoder.matches(request.currentPassword(), findMember.getPassword())) {
-            throw new MemberException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
+            throw new ApiException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
         }
     }
 
