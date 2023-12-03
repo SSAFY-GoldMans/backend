@@ -37,6 +37,7 @@ public class MemberServiceImpl
                 .orElseThrow();
     }
 
+    @Transactional
     @Override
     public void update(Member member, String newPassword) {
         member.updatePassword(Password.from(newPassword));
