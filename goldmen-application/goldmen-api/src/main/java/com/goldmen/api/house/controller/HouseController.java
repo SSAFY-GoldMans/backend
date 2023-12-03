@@ -25,14 +25,12 @@ public class HouseController {
     @PostMapping
     public ResponseEntity<ApiResponse<GetHouseResponse>> getHouseList(@RequestBody GetHouseRequest request) {
         ApiResponse<GetHouseResponse> response = houseService.getHouse(request);
-        log.info(response.getBody().getHouseList().toString());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/position")
     public ResponseEntity<ApiResponse<GetHousePositionResponse>> getHousePositionList(@RequestBody GetHouseRequest request) {
         ApiResponse<GetHousePositionResponse> response = houseService.getHousePosition(request);
-        log.info(response.getBody().housePositionList().toString());
         return ResponseEntity.ok(response);
     }
 

@@ -1,15 +1,17 @@
 package com.goldmen.api.user.member.service;
 
-import com.goldmen.api.user.member.dto.request.MemberLoginRequest;
-import com.goldmen.api.user.member.dto.request.MemberSignupRequest;
-import com.goldmen.api.user.member.mapper.MemberMapper;
 import com.goldmen.api.auth.data.dto.request.LoginRequest;
 import com.goldmen.api.auth.data.dto.response.TokenResponse;
 import com.goldmen.api.auth.service.AuthService;
+import com.goldmen.api.user.member.dto.request.MemberDeleteRequest;
+import com.goldmen.api.user.member.dto.request.MemberLoginRequest;
+import com.goldmen.api.user.member.dto.request.MemberSignupRequest;
+import com.goldmen.api.user.member.dto.request.MemberUpdateRequest;
+import com.goldmen.api.user.member.exception.MemberErrorCode;
+import com.goldmen.api.user.member.exception.MemberException;
+import com.goldmen.api.user.member.mapper.MemberMapper;
 import com.goldmen.common.type.ApiResponse;
 import com.goldmen.jpadomain.user.member.domain.Member;
-import com.goldmen.api.user.member.dto.request.MemberDeleteRequest;
-import com.goldmen.api.user.member.dto.request.MemberUpdateRequest;
 import com.goldmen.jpadomain.user.member.service.MemberLoadService;
 import com.goldmen.jpadomain.user.member.service.MemberModifyService;
 import lombok.RequiredArgsConstructor;
@@ -37,22 +39,34 @@ public class MemberService {
     }
 
     public ApiResponse<TokenResponse> login(MemberLoginRequest request) {
-        return ApiResponse.valueOf(authService.login(
-                        new LoginRequest(request.email(), request.password())))
+        return ApiResponse.valueOf(authService.login(new LoginRequest(request.email(), request.password())))
                 .addMessage(SUCCESS_LOGIN);
     }
 
+    /**
+     * @throws MemberException 사용자의 비밀번호가 일치하지 않으면 예외를 던짐
+     */
     public ApiResponse<String> update(int id, MemberUpdateRequest request) {
-        if (!request.newPassword().equals(request.validateNewPassword())) {
-            throw new RuntimeException();   // 새로운 비밀번호 불일치
-        }
+        validateInputPassword(request);
+
         Member findMember = memberLoadService.findById(id);
-        if (passwordEncoder.matches(request.currentPassword(), findMember.getPassword())) {
-            memberModifyService.update(findMember, request.newPassword());
-            return ApiResponse.noContent()
-                    .addMessage(SUCCESS_PASSWORD_UPDATE);
+        validatePassword(request, findMember);
+        memberModifyService.update(findMember, request.newPassword());
+
+        return ApiResponse.noContent()
+                .addMessage(SUCCESS_PASSWORD_UPDATE);
+    }
+
+    private void validateInputPassword(MemberUpdateRequest request) {
+        if (!request.newPassword().equals(request.validateNewPassword())) {
+            throw new MemberException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
         }
-        throw new RuntimeException();   // 현재 비밀번호 불일치
+    }
+
+    private void validatePassword(MemberUpdateRequest request, Member findMember) {
+        if (!passwordEncoder.matches(request.currentPassword(), findMember.getPassword())) {
+            throw new MemberException(MemberErrorCode.PASSWORD_IS_NOT_SAME);
+        }
     }
 
     public ApiResponse<Boolean> delete(MemberDeleteRequest request) {
