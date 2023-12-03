@@ -1,9 +1,11 @@
 package com.goldmen.jpadomain.user.member.service;
 
+import com.goldmen.jpadomain.global.exception.JpaDomainException;
 import com.goldmen.jpadomain.user.member.domain.Member;
 import com.goldmen.jpadomain.user.member.domain.MemberRepository;
 import com.goldmen.jpadomain.user.member.domain.embedded.Email;
 import com.goldmen.jpadomain.user.member.domain.embedded.Password;
+import com.goldmen.jpadomain.user.member.exception.MemberErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +23,12 @@ public class MemberServiceImpl
     @Override
     public Member save(Member member) {
         validateDuplicateBy(member.getEmail());
-
         return memberRepository.save(member);
     }
 
     private void validateDuplicateBy(Email email) {
         if (memberRepository.existsByEmail(email)) {
-            throw new RuntimeException();
+            throw new JpaDomainException(MemberErrorCode.DUPLICATE_EMAIL);
         }
     }
 

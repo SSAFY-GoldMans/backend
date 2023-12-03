@@ -30,6 +30,9 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final AuthService authService;
 
+    /**
+     * @throws com.goldmen.jpadomain.global.exception.JpaDomainException 이미 존재하는 회원이면 예외를 던진다.
+     */
     public ApiResponse<String> signup(MemberSignupRequest request) {
         Member member = mapper.toJpaEntity(request, passwordEncoder);
         memberModifyService.save(member);

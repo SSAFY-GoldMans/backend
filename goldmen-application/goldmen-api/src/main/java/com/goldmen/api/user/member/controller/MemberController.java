@@ -1,14 +1,14 @@
 package com.goldmen.api.user.member.controller;
 
+import com.goldmen.api.auth.annotation.Authenticated;
 import com.goldmen.api.auth.data.AuthMember;
+import com.goldmen.api.auth.data.dto.response.TokenResponse;
+import com.goldmen.api.user.member.dto.request.MemberDeleteRequest;
 import com.goldmen.api.user.member.dto.request.MemberLoginRequest;
 import com.goldmen.api.user.member.dto.request.MemberSignupRequest;
-import com.goldmen.api.user.member.service.MemberService;
-import com.goldmen.api.auth.annotation.Authenticated;
-import com.goldmen.api.auth.data.dto.response.TokenResponse;
-import com.goldmen.common.type.ApiResponse;
-import com.goldmen.api.user.member.dto.request.MemberDeleteRequest;
 import com.goldmen.api.user.member.dto.request.MemberUpdateRequest;
+import com.goldmen.api.user.member.service.MemberService;
+import com.goldmen.common.type.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +36,8 @@ public class MemberController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse<String>> update(
-            @Authenticated AuthMember authMember,
-            @RequestBody MemberUpdateRequest request) {
+    public ResponseEntity<ApiResponse<String>> update(@Authenticated AuthMember authMember,
+                                                      @RequestBody MemberUpdateRequest request) {
         ApiResponse<String> response = memberService.update(authMember.getId(), request);
         return ResponseEntity.ok(response);
     }
